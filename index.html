@@ -4,61 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4D Reconstruction Research</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --text-color: #333;
-            --max-width: 1200px;
-            --section-spacing: 4rem;
+        /* Added inline styles for gallery layout adjustments */
+        .gallery-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            position: relative; /* For positioning overlay elements */
+            min-height: 430px; /* Ensure minimum height matches iframe container */
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #f9f9f9;
-        }
-        
-        /* Interactive Gallery Styles */
-        .gallery-section {
-            position: relative;
-            margin: 2rem 0 4rem 0;
-            padding: 0;
-        }
-        
-        .gallery-container {
-            position: relative;
-            width: 100%;
-            height: 550px; /* Increased height for better display */
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .gallery-slide {
+        .video-container {
+            width: 30%;
+            max-width: 600px;
+            border: 3px solid #3f51b5;
+            border-radius: 6px;
+            padding: 10px;
+            background-color: #f5f9ff;
             position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10; /* Ensure video sits on top */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .input-label {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background-color: #3f51b5;
+            color: white;
+            padding: 2px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
+        .gallery-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .iframe-container {
             width: 100%;
             height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-grow: 1;
+            position: relative;
+            min-height: 430px; /* Set minimum height to ensure proper rendering */
         }
         
-        .gallery-slide.active {
-            opacity: 1;
-            z-index: 1;
+        .output-label {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            background-color: #4caf50;
+            color: white;
+            padding: 2px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            z-index: 5;
         }
         
         .gallery-iframe {
@@ -66,296 +80,80 @@
             height: 100%;
             border: none;
             background-color: #f5f5f5;
-            overflow: hidden;
-            display: block;
-        }
-        
-        .gallery-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .gallery-nav:hover {
-            background-color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-        
-        .gallery-nav.prev {
-            left: 20px;
-        }
-        
-        .gallery-nav.next {
-            right: 20px;
-        }
-        
-        .gallery-nav svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--secondary-color);
-        }
-        
-        .gallery-indicators {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-        
-        .gallery-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .gallery-indicator.active {
-            background-color: var(--primary-color);
-            transform: scale(1.2);
-        }
-        
-        .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        header {
-            background-color: #ffffff;
-            color: var(--secondary-color);
-            padding: 4rem 0;
-            text-align: center;
-            border-bottom: 1px solid #eaeaea;
-        }
-        
-        .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-        
-        .authors {
-            margin: 2rem 0;
-            font-size: 1.1rem;
-        }
-        
-        .author {
-            display: inline-block;
-            margin-right: 0.5rem;
-        }
-        
-        .author-name {
-            font-weight: 600;
-        }
-        
-        sup {
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-        
-        .institutions {
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        
-        .institution {
-            margin-bottom: 0.25rem;
-        }
-        
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.75rem 1.5rem;
             border-radius: 4px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            background-color: white;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
         }
         
-        .btn:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn svg {
-            margin-right: 0.5rem;
-            width: 20px;
-            height: 20px;
-        }
-        
-        section {
-            padding: var(--section-spacing) 0;
-        }
-        
-        .section-box {
-            background-color: white;
+        /* Updated styles for interaction instructions */
+        .interaction-guide {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 60px; /* Increased spacing between items */
+            margin-top: 10px; /* Reduced top margin to minimize space between elements */
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background-color: #f5f5f5;
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 2.5rem;
-            margin-bottom: 3rem;
-            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+            width: 100%;
         }
         
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--secondary-color);
-            text-align: center;
-        }
-        
-        .abstract {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: justify;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .overview {
+        .interaction-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3rem;
-            margin: 3rem 0;
-        }
-        
-        .overview-image {
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .results {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .result-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .result-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background-color: #eee;
-        }
-        
-        .result-content {
-            padding: 1.5rem;
-        }
-        
-        .result-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-        
-        .result-description {
-            font-size: 0.95rem;
-            color: #666;
-        }
-        
-        .citation {
-            background-color: var(--light-color);
-            padding: 2rem;
-            border-radius: 8px;
-            margin-top: 2rem;
-        }
-        
-        .citation pre {
-            background-color: white;
-            padding: 1rem;
-            border-radius: 4px;
-            overflow-x: auto;
-            font-size: 0.9rem;
-            border: 1px solid #ddd;
-        }
-        
-        footer {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 2rem 0;
+            gap: 8px;
             text-align: center;
-            margin-top: 4rem;
         }
         
-        .footer-content {
-            font-size: 0.9rem;
-            opacity: 0.9;
+        .interaction-icon {
+            width: 30px; /* Smaller icon size */
+            height: 30px;
         }
         
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .authors {
-                font-size: 0.95rem;
-            }
-            
-            .btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-            }
-            
-            .abstract {
-                font-size: 1rem;
-            }
+        .interaction-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
+        
+        .interaction-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        /* Updated styles for gallery indicators */
+        .gallery-indicators {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            z-index: 20;
+        }
+        
+        .gallery-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .gallery-indicator.active {
+            background-color: #3f51b5;
+        }
+
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="header-content">
-                <h1>Uni4D: Unifying Large Vision Models for 4D Modeling from a Single Video</h1>
+                <h1>Uni4D: Unifying Visual Foundation Models for 4D Modeling from a Single Video</h1>
                 <div class="authors">
                     <div class="author"><span class="author-name">David Yifan Yao</span><sup>1</sup>,</div>
                     <div class="author"><span class="author-name">Albert Zhai</span><sup>1</sup>,</div>
@@ -389,28 +187,123 @@
     </header>
     
     <main>
+
+        <section id="abstract">
+            <div class="container">
+                <div class="section-box">
+                    <h2>Abstract</h2>
+                    <div class="abstract">
+                        <p>This paper presents a unified approach to understanding dynamic scenes from casual videos. Large pretrained vision models, such as vision-language, video depth prediction, motion tracking, and segmentation models, offer promising capabilities. However, training a single model for comprehensive 4D understanding remains challenging. We introduce Uni4D, a multi-stage optimization framework that harnesses multiple pretrained models to advance dynamic 3D modeling, including static/dynamic reconstruction, camera pose estimation, and dense 3D motion tracking. Our results show state-of-the-art performance in dynamic 4D modeling with superior visual quality. Notably, Uni4D requires no retraining or fine-tuning, highlighting the effectiveness of repurposing visual foundation models for 4D understanding.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="interactive" class="gallery-section">
-            
             <div class="container">
                 <div class="section-box">
                     <h2>Interactive Results</h2>
+
+                    <!-- Indicators - moved above the gallery container -->
+                    <div class="gallery-indicators">
+                        <div class="gallery-indicator active" data-index="0"></div>
+                        <div class="gallery-indicator" data-index="1"></div>
+                        <div class="gallery-indicator" data-index="2"></div>
+                        <div class="gallery-indicator" data-index="3"></div>
+                        <div class="gallery-indicator" data-index="4"></div>
+                    </div>
+
                     <div class="gallery-container">
+                        <!-- Gallery Slide 1 -->
                         <div class="gallery-slide active">
-                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 1" id="iframe1" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                            <div class="gallery-content">
+                                <div class="iframe-container">
+                                    <div class="output-label">4D Reconstruction</div>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/lady-running.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 1" allowfullscreen></iframe>
+                                </div>
+                                <div class="video-container">
+                                    <div class="input-label">Input Video</div>
+                                    <video class="gallery-video" autoplay loop muted playsinline controls>
+                                        <source src="https://davidyao99.github.io/uni4d/recordings/lady-running.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                            
+                            </div>
                         </div>
+
+                        <!-- Gallery Slide 2 -->
                         <div class="gallery-slide">
-                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" id="iframe2" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                            <div class="gallery-content">
+                                <div class="iframe-container">
+                                    <div class="output-label">4D Reconstruction</div>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/car-shadow.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" allowfullscreen></iframe>
+                                </div>
+                                <div class="video-container">
+                                    <div class="input-label">Input Video</div>
+                                    <video class="gallery-video" autoplay loop muted playsinline controls>
+                                        <source src=https://davidyao99.github.io/uni4d/recordings/car-shadow.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                
+                            </div>
                         </div>
+
+                        <!-- Gallery Slide 3 -->
                         <div class="gallery-slide">
-                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 3" id="iframe3" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                            <div class="gallery-content">
+                                <div class="iframe-container">
+                                    <div class="output-label">4D Reconstruction</div>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/soapbox.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 3" allowfullscreen></iframe>
+                                </div>
+                                <div class="video-container">
+                                    <div class="input-label">Input Video</div>
+                                    <video class="gallery-video" autoplay loop muted playsinline>
+                                        <source src=https://davidyao99.github.io/uni4d/recordings/soapbox.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                
+                            </div>
                         </div>
+
+                        <!-- Gallery Slide 4 -->
                         <div class="gallery-slide">
-                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 4" id="iframe4" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                            <div class="gallery-content">
+                                <div class="iframe-container">
+                                    <div class="output-label">4D Reconstruction</div>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/longboard.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 4" allowfullscreen></iframe>
+                                </div>
+                                <div class="video-container">
+                                    <div class="input-label">Input Video</div>
+                                    <video class="gallery-video" autoplay loop muted playsinline>
+                                        <source src="https://davidyao99.github.io/uni4d/recordings/ongboard.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                
+                            </div>
                         </div>
+
+                        <!-- Gallery Slide 5 -->
                         <div class="gallery-slide">
-                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 5" id="iframe5" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                            <div class="gallery-content">
+                                <div class="iframe-container">
+                                    <div class="output-label">4D Reconstruction</div>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance-flare.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 5" allowfullscreen></iframe>
+                                </div>
+                                <div class="video-container">
+                                    <div class="input-label">Input Video</div>
+                                    <video class="gallery-video" autoplay loop muted playsinline>
+                                        <source src="https://davidyao99.github.io/uni4d/recordings/breakdance-flare.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                            </div>
                         </div>
-                        
+
+                        <!-- Navigation Controls - fix closing tag -->
                         <div class="gallery-nav prev">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -421,33 +314,33 @@
                                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
                             </svg>
                         </div>
-                        
-                        <div class="gallery-indicators">
-                            <div class="gallery-indicator active" data-index="0"></div>
-                            <div class="gallery-indicator" data-index="1"></div>
-                            <div class="gallery-indicator" data-index="2"></div>
-                            <div class="gallery-indicator" data-index="3"></div>
-                            <div class="gallery-indicator" data-index="4"></div>
+                    </div>
+
+                    <!-- Interaction Guide - placed below the gallery container -->
+                    <div class="interaction-guide">
+                        <div class="interaction-item">
+                            <div class="interaction-icon">
+                                <img src="assets/left-click.png" alt="Left click to rotate">
+                            </div>
+                            <span class="interaction-text">Left click to rotate</span>
+                        </div>
+                        <div class="interaction-item">
+                            <div class="interaction-icon">
+                                <img src="assets/wheel.png" alt="Scroll to zoom">
+                            </div>
+                            <span class="interaction-text">Scroll to zoom</span>
+                        </div>
+                        <div class="interaction-item">
+                            <div class="interaction-icon">
+                                <img src="assets/right-click.png" alt="Right click to pan">
+                            </div>
+                            <span class="interaction-text">Right click to pan</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <section id="abstract">
-            <div class="container">
-                <div class="section-box">
-                    <h2>Abstract</h2>
-                    <div class="abstract">
-                        <p>This paper presents a unified approach to understanding dynamic scenes from casual videos. Large pretrained vision models, such as vision-language, video depth prediction, motion tracking, and segmentation models, offer promising capabilities. However, training a single model for comprehensive 4D understanding remains challenging. We introduce Uni4D, a multi-stage optimization framework that harnesses multiple pretrained models to advance dynamic 3D modeling, including static/dynamic reconstruction, camera pose estimation, and dense 3D motion tracking. Our results show state-of-the-art performance in dynamic 4D modeling with superior visual quality. Notably, Uni4D requires no retraining or fine-
-                            tuning, highlighting the effectiveness of repurposing visual foundation models for 4D understanding.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-
-        
         <section id="overview">
             <div class="container">
                 <div class="section-box">
@@ -460,251 +353,291 @@
             </div>
         </section>
 
-            <!-- Comparative Works Section -->
-    <section id="comparison">
-        <div class="container">
-            <div class="section-box">
-                <h2>Comparative Works</h2>
-                
-                <!-- Interactive Comparison Gallery -->
-                <div class="gallery-container comparison-container">
-                    <div class="gallery-slide comp-slide active">
-                        <div class="comparison-grid">
-                            <div class="comparison-item">
-                                <div class="method-label">Ours (Uni4D)</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/recording_alley_2_casualSAM.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Our Method - Scene 1" allowfullscreen></iframe>
+        <!-- Comparative Works Section -->
+        <section id="comparison">
+            <div class="container">
+                <div class="section-box">
+                    <h2>Comparative Works</h2>
+                    
+                    <!-- Dataset Selection Buttons -->
+                    <div class="dataset-buttons">
+                        <button class="dataset-btn active" data-dataset="sintel">Sintel</button>
+                        <button class="dataset-btn" data-dataset="tum">TUM-Dynamics</button>
+                        <button class="dataset-btn" data-dataset="bonn">Bonn</button>
+                        <button class="dataset-btn" data-dataset="kitti">Kitti</button>
+                        <button class="dataset-btn" data-dataset="davis">DAVIS</button>
+                    </div>
+                    
+                    <!-- Interactive Comparison Gallery -->
+                    <div class="gallery-container comparison-container">
+                        <!-- Sintel Dataset -->
+                        <div class="gallery-slide comp-slide active">
+                            <div class="comparison-grid">
+                                <!-- Row 1 -->
+                                <div class="comparison-item">
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/sintel_uni4d_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">MonST3R</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/sintel_nerf_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">CasualSAM</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/sintel_mesh_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                
+                                <!-- Row 2 -->
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/sintel_uni4d_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/sintel_nerf_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/sintel_mesh_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
                             </div>
-                            <div class="comparison-item">
-                                <div class="method-label">NeRF-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/recording_alley_2_uni4D.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="NeRF Method - Scene 1" allowfullscreen></iframe>
+                        </div>
+                                                
+                        <!-- Bonn Dataset -->
+                        <div class="gallery-slide comp-slide">
+                            <div class="comparison-grid">
+                                <!-- Row 1 -->
+                                <div class="comparison-item">
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/bonn_uni4d_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">MonST3R</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/bonn_nerf_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">CasualSAM</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/bonn_mesh_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                
+                                <!-- Row 2 -->
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/bonn_uni4d_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/bonn_nerf_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/bonn_mesh_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
                             </div>
-                            <div class="comparison-item">
-                                <div class="method-label">Mesh-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/recording_alley_2_monst3r.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Mesh Method - Scene 1" allowfullscreen></iframe>
+                        </div>
+                        
+                        <!-- Kitti Dataset -->
+                        <div class="gallery-slide comp-slide">
+
+                            <div class="comparison-grid">
+                                <!-- Row 1 -->
+                                <div class="comparison-item">
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/kitti_uni4d_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">MonST3R</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/kitti_nerf_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">CasualSAM</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/kitti_mesh_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                
+                                <!-- Row 2 -->
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/kitti_uni4d_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/kitti_nerf_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/kitti_mesh_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
                             </div>
+                        </div>
+                        
+                        <!-- DAVIS Dataset -->
+                        <div class="gallery-slide comp-slide">
+                            <div class="comparison-grid">
+                                <!-- Row 1 -->
+                                <div class="comparison-item">
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/davis_uni4d_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">MonST3R</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/davis_nerf_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">CasualSAM</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/davis_mesh_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                
+                                <!-- Row 2 -->
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/davis_uni4d_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/davis_nerf_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/davis_mesh_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- TUM-Dynamics Dataset -->
+                        <div class="gallery-slide comp-slide">
+                            <div class="comparison-grid">
+                                <!-- Row 1 -->
+                                <div class="comparison-item">
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/tum_uni4d_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">MonST3R</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/tum_nerf_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">CasualSAM</div>
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/tum_mesh_1.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                
+                                <!-- Row 2 -->
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/tum_uni4d_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/tum_nerf_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                                <div class="comparison-item">
+                                    <video class="comparison-video" autoplay loop muted playsinline>
+                                        <source src="videos/tum_mesh_2.mp4" type="video/mp4">
+                                        Your browser does not support video.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Navigation Controls -->
+                        <div class="gallery-nav comp-prev prev">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                            </svg>
+                        </div>
+                        <div class="gallery-nav comp-next next">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Indicators -->
+                        <div class="gallery-indicators comp-indicators">
+                            <div class="gallery-indicator comp-indicator active" data-index="0"></div>
+                            <div class="gallery-indicator comp-indicator" data-index="1"></div>
+                            <div class="gallery-indicator comp-indicator" data-index="2"></div>
+                            <div class="gallery-indicator comp-indicator" data-index="3"></div>
+                            <div class="gallery-indicator comp-indicator" data-index="4"></div>
                         </div>
                     </div>
                     
-                    <div class="gallery-slide comp-slide">
-                        <div class="comparison-grid">
-                            <div class="comparison-item">
-                                <div class="method-label">Ours (Uni4D)</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Our Method - Scene 2" allowfullscreen></iframe>
-                            </div>
-                            <div class="comparison-item">
-                                <div class="method-label">NeRF-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="NeRF Method - Scene 2" allowfullscreen></iframe>
-                            </div>
-                            <div class="comparison-item">
-                                <div class="method-label">Mesh-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Mesh Method - Scene 2" allowfullscreen></iframe>
-                            </div>
-                        </div>
+                    <div class="comparison-description">
+                        <p>We compare our Uni4D approach against state-of-the-art methods including traditional NeRF-based and CasualSAM reconstruction techniques across four standard datasets. Our method demonstrates superior visual quality, temporal consistency, and geometric accuracy across a variety of challenging scenes.</p>
                     </div>
-                    
-                    <div class="gallery-slide comp-slide">
-                        <div class="comparison-grid">
-                            <div class="comparison-item">
-                                <div class="method-label">Ours (Uni4D)</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Our Method - Scene 3" allowfullscreen></iframe>
-                            </div>
-                            <div class="comparison-item">
-                                <div class="method-label">NeRF-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="NeRF Method - Scene 3" allowfullscreen></iframe>
-                            </div>
-                            <div class="comparison-item">
-                                <div class="method-label">Mesh-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Mesh Method - Scene 3" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-slide comp-slide">
-                        <div class="comparison-grid">
-                            <div class="comparison-item">
-                                <div class="method-label">Ours (Uni4D)</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Our Method - Scene 4" allowfullscreen></iframe>
-                            </div>
-                            <div class="comparison-item">
-                                <div class="method-label">NeRF-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="NeRF Method - Scene 4" allowfullscreen></iframe>
-                            </div>
-                            <div class="comparison-item">
-                                <div class="method-label">Mesh-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Mesh Method - Scene 4" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-slide comp-slide">
-                        <div class="comparison-grid">
-                            <div class="comparison-item">
-                                <div class="method-label">Ours (Uni4D)</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Our Method - Scene 5" allowfullscreen></iframe>
-                            </div>
-                            <div class="comparison-item">
-                                <div class="method-label">NeRF-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="NeRF Method - Scene 5" allowfullscreen></iframe>
-                            </div>
-                            <div class="comparison-item">
-                                <div class="method-label">Mesh-based</div>
-                                <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="comparison-iframe" title="Mesh Method - Scene 5" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-nav comp-prev prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                        </svg>
-                    </div>
-                    <div class="gallery-nav comp-next next">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                        </svg>
-                    </div>
-                    
-                    <div class="gallery-indicators comp-indicators">
-                        <div class="gallery-indicator comp-indicator active" data-index="0"></div>
-                        <div class="gallery-indicator comp-indicator" data-index="1"></div>
-                        <div class="gallery-indicator comp-indicator" data-index="2"></div>
-                        <div class="gallery-indicator comp-indicator" data-index="3"></div>
-                        <div class="gallery-indicator comp-indicator" data-index="4"></div>
-                    </div>
-                </div>
-                
-                <div class="comparison-description">
-                    <p>We compare our Uni4D approach against state-of-the-art methods including traditional NeRF-based and mesh-based reconstruction techniques. Our method demonstrates superior visual quality, temporal consistency, and geometric accuracy across a variety of challenging scenes.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <style>
-        /* Comparison Section Styles */
-        .comparison-container {
-            height: 650px; /* Increased height to accommodate multiple iframes */
-        }
-        
-        .comparison-grid {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            gap: 15px;
-        }
-        
-        @media (min-width: 992px) {
-            .comparison-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: 1fr;
-                height: 100%;
-                gap: 15px;
-            }
-        }
-        
-        .comparison-item {
-            position: relative;
-            flex: 1;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .method-label {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            z-index: 5;
-        }
-        
-        .comparison-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-        
-        .comparison-description {
-            margin-top: 2rem;
-            text-align: center;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Make sure the gallery navigation works for comparison section */
-        .comp-slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-        
-        .comp-slide.active {
-            opacity: 1;
-            z-index: 1;
-        }
-    </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Comparison Gallery functionality
-            const compSlides = document.querySelectorAll('.comp-slide');
-            const compPrevBtn = document.querySelector('.comp-prev');
-            const compNextBtn = document.querySelector('.comp-next');
-            const compIndicators = document.querySelectorAll('.comp-indicator');
-            let currentCompSlide = 0;
-            
-            // Function to update comparison slide display
-            function updateCompSlide(index) {
-                compSlides.forEach(slide => slide.classList.remove('active'));
-                compSlides[index].classList.add('active');
-                
-                compIndicators.forEach(indicator => indicator.classList.remove('active'));
-                compIndicators[index].classList.add('active');
-                
-                currentCompSlide = index;
-            }
-            
-            // Next slide function
-            function nextCompSlide() {
-                let newIndex = currentCompSlide + 1;
-                if (newIndex >= compSlides.length) {
-                    newIndex = 0;
-                }
-                updateCompSlide(newIndex);
-            }
-            
-            // Previous slide function
-            function prevCompSlide() {
-                let newIndex = currentCompSlide - 1;
-                if (newIndex < 0) {
-                    newIndex = compSlides.length - 1;
-                }
-                updateCompSlide(newIndex);
-            }
-            
-            // Event listeners
-            if (compNextBtn) compNextBtn.addEventListener('click', nextCompSlide);
-            if (compPrevBtn) compPrevBtn.addEventListener('click', prevCompSlide);
-            
-            // Indicator clicks
-            compIndicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    updateCompSlide(index);
-                });
-            });
-        });
-    </script>
+        </section>
         
         <section id="results">
             <div class="container">
@@ -723,7 +656,8 @@
                 
                 <div class="section-box">
                     <h3>Citation</h3>
-                    <pre>@InProceedings{YourName2023,
+                    <div class="citation">
+                        <pre>@InProceedings{YourName2023,
     author    = {Author, First and Author, Second and Author, Third and Author, Fourth},
     title     = {4D Reconstruction: Dynamic Scene Understanding from Multiview Video},
     booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
@@ -731,6 +665,7 @@
     year      = {2023},
     pages     = {1--10}
 }</pre>
+                    </div>
                 </div>
             </div>
         </section>
@@ -745,52 +680,32 @@
         </div>
     </footer>
     
+    <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Gallery functionality
-            const slides = document.querySelectorAll('.gallery-slide');
-            const prevBtn = document.querySelector('.gallery-nav.prev');
-            const nextBtn = document.querySelector('.gallery-nav.next');
-            const indicators = document.querySelectorAll('.gallery-indicator');
-            let currentSlide = 0;
-            
-            // Function to update slide display
-            function updateSlide(index) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                slides[index].classList.add('active');
-                
-                indicators.forEach(indicator => indicator.classList.remove('active'));
-                indicators[index].classList.add('active');
-                
-                currentSlide = index;
-            }
-            
-            // Next slide function
-            function nextSlide() {
-                let newIndex = currentSlide + 1;
-                if (newIndex >= slides.length) {
-                    newIndex = 0;
-                }
-                updateSlide(newIndex);
-            }
-            
-            // Previous slide function
-            function prevSlide() {
-                let newIndex = currentSlide - 1;
-                if (newIndex < 0) {
-                    newIndex = slides.length - 1;
-                }
-                updateSlide(newIndex);
-            }
-            
-            // Event listeners
-            nextBtn.addEventListener('click', nextSlide);
-            prevBtn.addEventListener('click', prevSlide);
-            
-            // Indicator clicks
-            indicators.forEach((indicator, index) => {
+            const datasetButtons = document.querySelectorAll('.dataset-btn');
+            const compSlides = document.querySelectorAll('.comp-slide');
+            const compIndicators = document.querySelectorAll('.comp-indicator');
+
+            datasetButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    datasetButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    compSlides.forEach(slide => slide.classList.remove('active'));
+                    compSlides[index].classList.add('active');
+                    compIndicators.forEach(indicator => indicator.classList.remove('active'));
+                    compIndicators[index].classList.add('active');
+                });
+            });
+
+            compIndicators.forEach((indicator, index) => {
                 indicator.addEventListener('click', () => {
-                    updateSlide(index);
+                    compIndicators.forEach(ind => ind.classList.remove('active'));
+                    indicator.classList.add('active');
+                    compSlides.forEach(slide => slide.classList.remove('active'));
+                    compSlides[index].classList.add('active');
+                    datasetButtons.forEach(btn => btn.classList.remove('active'));
+                    datasetButtons[index].classList.add('active');
                 });
             });
         });
