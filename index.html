@@ -22,6 +22,13 @@
             box-sizing: border-box;
         }
         
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
         /* Interactive Gallery Styles */
         .gallery-section {
             position: relative;
@@ -32,7 +39,7 @@
         .gallery-container {
             position: relative;
             width: 100%;
-            height: 450px;
+            height: 550px; /* Increased height for better display */
             overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -59,6 +66,8 @@
             height: 100%;
             border: none;
             background-color: #f5f5f5;
+            overflow: hidden;
+            display: block;
         }
         
         .gallery-nav {
@@ -381,24 +390,25 @@
     
     <main>
         <section id="interactive" class="gallery-section">
+            
             <div class="container">
                 <div class="section-box">
                     <h2>Interactive Results</h2>
                     <div class="gallery-container">
                         <div class="gallery-slide active">
-                            <iframe src="https://davidyao99.github.io/build/?playbackPath=https://davidyao99.github.io/viser_recordings/recording_breakdance-flare_uni4D.viser" class="gallery-iframe" title="Interactive Result 1" id="iframe1"></iframe>
+                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 1" id="iframe1" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                         </div>
                         <div class="gallery-slide">
-                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 2" id="iframe2"></iframe>
+                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" id="iframe2" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                         </div>
                         <div class="gallery-slide">
-                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 3" id="iframe3"></iframe>
+                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 3" id="iframe3" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                         </div>
                         <div class="gallery-slide">
-                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 4" id="iframe4"></iframe>
+                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 4" id="iframe4" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                         </div>
                         <div class="gallery-slide">
-                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 5" id="iframe5"></iframe>
+                            <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 5" id="iframe5" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
                         </div>
                         
                         <div class="gallery-nav prev">
@@ -430,7 +440,7 @@
                     <h2>Abstract</h2>
                     <div class="abstract">
                         <p>This paper presents a unified approach to understanding dynamic scenes from casual videos. Large pretrained vision models, such as vision-language, video depth prediction, motion tracking, and segmentation models, offer promising capabilities. However, training a single model for comprehensive 4D understanding remains challenging. We introduce Uni4D, a multi-stage optimization framework that harnesses multiple pretrained models to advance dynamic 3D modeling, including static/dynamic reconstruction, camera pose estimation, and dense 3D motion tracking. Our results show state-of-the-art performance in dynamic 4D modeling with superior visual quality. Notably, Uni4D requires no retraining or fine-
-                            tuning, highlighting the effectiveness of repurposing \todo{visual foundation} models for 4D understanding.</p>
+                            tuning, highlighting the effectiveness of repurposing visual foundation models for 4D understanding.</p>
                     </div>
                 </div>
             </div>
@@ -485,7 +495,9 @@
                 <p>Website template created for CVPR paper presentation</p>
             </div>
         </div>
-    </footer>    <script>
+    </footer>
+    
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Gallery functionality
             const slides = document.querySelectorAll('.gallery-slide');
@@ -493,13 +505,6 @@
             const nextBtn = document.querySelector('.gallery-nav.next');
             const indicators = document.querySelectorAll('.gallery-indicator');
             let currentSlide = 0;
-            
-            // Set iframe sources (replace these with your actual iframe sources)
-            document.getElementById('iframe1').src = 'about:blank';
-            document.getElementById('iframe2').src = 'about:blank';
-            document.getElementById('iframe3').src = 'about:blank';
-            document.getElementById('iframe4').src = 'about:blank';
-            document.getElementById('iframe5').src = 'about:blank';
             
             // Function to update slide display
             function updateSlide(index) {
