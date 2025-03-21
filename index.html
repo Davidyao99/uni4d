@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4D Reconstruction Research</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --max-width: 1200px;
+            --section-spacing: 4rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Interactive Gallery Styles */
+        .gallery-section {
+            position: relative;
+            margin: 2rem 0 4rem 0;
+            padding: 0;
+        }
+        
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gallery-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .gallery-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: #f5f5f5;
+        }
+        
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-nav:hover {
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-nav.prev {
+            left: 20px;
+        }
+        
+        .gallery-nav.next {
+            right: 20px;
+        }
+        
+        .gallery-nav svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--secondary-color);
+        }
+        
+        .gallery-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .gallery-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-indicator.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header {
+            background-color: #ffffff;
+            color: var(--secondary-color);
+            padding: 4rem 0;
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .authors {
+            margin: 2rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .author {
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        .author-name {
+            font-weight: 600;
+        }
+        
+        sup {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .institutions {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .institution {
+            margin-bottom: 0.25rem;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn svg {
+            margin-right: 0.5rem;
+            width: 20px;
+            height: 20px;
+        }
+        
+        section {
+            padding: var(--section-spacing) 0;
+        }
+        
+        .section-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid #eaeaea;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .abstract {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: justify;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .overview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .overview-image {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .result-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+        
+        .result-content {
+            padding: 1.5rem;
+        }
+        
+        .result-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .result-description {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        .citation {
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        .citation pre {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            border: 1px solid #ddd;
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .authors {
+                font-size: 0.95rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .abstract {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Uni4D: Unifying Large Vision Models for 4D Modeling from a Single Video</h1>
+                <div class="authors">
+                    <div class="author"><span class="author-name">David Yifan Yao</span><sup>1</sup>,</div>
+                    <div class="author"><span class="author-name">Albert Zhai</span><sup>1</sup>,</div>
+                    <div class="author"><span class="author-name">Wang Shenlong</span><sup>1</sup>,</div>
+                </div>
+                <div class="institutions">
+                    <div class="institution"><sup>1</sup>University of Illinois, Urbana Champaign</div>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                        </svg>
+                        Paper
+                    </a>
+                    <a href="#" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                        Code
+                    </a>
+                    <a href="#" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        Results
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section id="interactive" class="gallery-section">
+            <div class="container">
+                <div class="section-box">
+                    <h2>Interactive Results</h2>
+                    <div class="gallery-container">
+                        <div class="gallery-slide active">
+                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 1" id="iframe1"></iframe>
+                        </div>
+                        <div class="gallery-slide">
+                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 2" id="iframe2"></iframe>
+                        </div>
+                        <div class="gallery-slide">
+                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 3" id="iframe3"></iframe>
+                        </div>
+                        <div class="gallery-slide">
+                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 4" id="iframe4"></iframe>
+                        </div>
+                        <div class="gallery-slide">
+                            <iframe src="about:blank" class="gallery-iframe" title="Interactive Result 5" id="iframe5"></iframe>
+                        </div>
+                        
+                        <div class="gallery-nav prev">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                            </svg>
+                        </div>
+                        <div class="gallery-nav next">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="gallery-indicators">
+                            <div class="gallery-indicator active" data-index="0"></div>
+                            <div class="gallery-indicator" data-index="1"></div>
+                            <div class="gallery-indicator" data-index="2"></div>
+                            <div class="gallery-indicator" data-index="3"></div>
+                            <div class="gallery-indicator" data-index="4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="abstract">
+            <div class="container">
+                <div class="section-box">
+                    <h2>Abstract</h2>
+                    <div class="abstract">
+                        <p>This paper presents a unified approach to understanding dynamic scenes from casual videos. Large pretrained vision models, such as vision-language, video depth prediction, motion tracking, and segmentation models, offer promising capabilities. However, training a single model for comprehensive 4D understanding remains challenging. We introduce Uni4D, a multi-stage optimization framework that harnesses multiple pretrained models to advance dynamic 3D modeling, including static/dynamic reconstruction, camera pose estimation, and dense 3D motion tracking. Our results show state-of-the-art performance in dynamic 4D modeling with superior visual quality. Notably, Uni4D requires no retraining or fine-
+                            tuning, highlighting the effectiveness of repurposing \todo{visual foundation} models for 4D understanding.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="overview">
+            <div class="container">
+                <div class="section-box">
+                    <h2>Method Overview</h2>
+                    <div class="overview">
+                        <img src="/api/placeholder/800/400" alt="Method Overview" class="overview-image">
+                        <p class="abstract"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="results">
+            <div class="container">
+                <div class="section-box">
+                    <h2>Results</h2>
+                    <div class="results">
+                        <div class="result-card">
+                            <img src="/api/placeholder/400/200" alt="Result 1" class="result-image">
+                            <div class="result-content">
+                                <h3 class="result-title">Dynamic Human Reconstruction</h3>
+                                <p class="result-description">Our method accurately reconstructs human motion from multi-view video, capturing fine details in clothing and natural movement patterns.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-box">
+                    <h3>Citation</h3>
+                    <pre>@InProceedings{YourName2023,
+    author    = {Author, First and Author, Second and Author, Third and Author, Fourth},
+    title     = {4D Reconstruction: Dynamic Scene Understanding from Multiview Video},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2023},
+    pages     = {1--10}
+}</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2023 | This work was supported by [Funding Agency/Grant Number]</p>
+                <p>Website template created for CVPR paper presentation</p>
+            </div>
+        </div>
+    </footer>    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gallery functionality
+            const slides = document.querySelectorAll('.gallery-slide');
+            const prevBtn = document.querySelector('.gallery-nav.prev');
+            const nextBtn = document.querySelector('.gallery-nav.next');
+            const indicators = document.querySelectorAll('.gallery-indicator');
+            let currentSlide = 0;
+            
+            // Set iframe sources (replace these with your actual iframe sources)
+            document.getElementById('iframe1').src = 'about:blank';
+            document.getElementById('iframe2').src = 'about:blank';
+            document.getElementById('iframe3').src = 'about:blank';
+            document.getElementById('iframe4').src = 'about:blank';
+            document.getElementById('iframe5').src = 'about:blank';
+            
+            // Function to update slide display
+            function updateSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                indicators[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+            
+            // Next slide function
+            function nextSlide() {
+                let newIndex = currentSlide + 1;
+                if (newIndex >= slides.length) {
+                    newIndex = 0;
+                }
+                updateSlide(newIndex);
+            }
+            
+            // Previous slide function
+            function prevSlide() {
+                let newIndex = currentSlide - 1;
+                if (newIndex < 0) {
+                    newIndex = slides.length - 1;
+                }
+                updateSlide(newIndex);
+            }
+            
+            // Event listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Indicator clicks
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    updateSlide(index);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
