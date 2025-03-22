@@ -248,30 +248,34 @@ function initDatasetButtons() {
     });
 }
 
-// /**
-//  * Helper function to play a video with error handling
-//  * @param {HTMLVideoElement} video - The video element to play
-//  */
-// function playVideo(video) {
-//     if (video.paused) {
-//         video.play().catch(error => {
-//             console.log('Video autoplay prevented:', error);
+/**
+ * Helper function to play a video with error handling
+ * @param {HTMLVideoElement} video - The video element to play
+ */
+function playVideo(video) {
+    if (video.paused) {
+        video.play().catch(error => {
+            console.log('Video autoplay prevented:', error);
             
-//             // Add a playback overlay to indicate the video needs to be clicked
-//             if (!video.parentElement.querySelector('.video-play-overlay')) {
-//                 const overlay = document.createElement('div');
-//                 overlay.className = 'video-play-overlay';
-//                 overlay.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-//                 overlay.addEventListener('click', () => {
-//                     video.play().then(() => {
-//                         overlay.remove();
-//                     }).catch(e => console.log('Still cannot play video:', e));
-//                 });
-//                 video.parentElement.appendChild(overlay);
-//             }
-//         });
-//     }
-// }
+            // Skip adding play overlay for Sintel dataset videos
+            const isInSintelSlide = video.closest('.comp-slide') && 
+                                   video.closest('.comp-slide') === document.querySelector('.comp-slide:first-child');
+            
+            // Add a playback overlay only if not in Sintel slide
+            if (!isInSintelSlide && !video.parentElement.querySelector('.video-play-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.className = 'video-play-overlay';
+                overlay.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+                overlay.addEventListener('click', () => {
+                    video.play().then(() => {
+                        overlay.remove();
+                    }).catch(e => console.log('Still cannot play video:', e));
+                });
+                video.parentElement.appendChild(overlay);
+            }
+        });
+    }
+}
 
 /**
  * Add click handlers to all videos to toggle play/pause
