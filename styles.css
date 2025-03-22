@@ -287,6 +287,73 @@ sup {
     transform: scale(1.2);
 }
 
+/* Fix for the pose evaluation gallery */
+.pose-gallery-container {
+    min-height: auto; /* Changed from fixed height */
+    height: auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: visible;
+    display: block;
+    width: 100%;
+}
+
+.pose-slide {
+    display: none;
+    width: 100%;
+    height: auto; /* Changed from 100% */
+    position: relative;
+}
+
+.pose-slide.active {
+    display: block;
+    position: relative;
+}
+
+.pose-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.pose-image-item {
+    width: 100%; /* Change to full width */
+    max-width: 100%; /* Remove max-width constraint */
+    text-align: center;
+    margin: 0 auto;
+}
+
+.pose-image {
+    width: auto; /* Changed from 100% to auto */
+    height: auto;
+    max-width: 100%; /* Added max-width */
+    max-height: 70vh; /* Limit height to 70% of viewport height */
+    object-fit: contain; /* Maintain aspect ratio */
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
+    display: block;
+    margin: 0 auto; /* Center the image */
+}
+
+.pose-image:hover {
+    transform: scale(1.02);
+}
+
+.pose-label {
+    margin-top: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #444;
+}
+
 /* =========================================
    6. Abstract & Overview
    ========================================= */
@@ -302,14 +369,33 @@ sup {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
-    margin: 3rem 0;
+    gap: 2rem; /* Reduced from 3rem */
+    margin: 2rem 0; /* Reduced from 3rem */
 }
 
 .overview-image {
     max-width: 100%;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin: 0 auto;
+}
+
+/* Specific style for quantitative results images */
+.quantitative-results {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.quantitative-results img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 /* =========================================
@@ -386,11 +472,7 @@ sup {
     background-color: #000;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 250px; /* Reduced from 280px */
-}
-
-.comparison-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    z-index: 1; /* Ensure proper stacking */
 }
 
 /* Method label */
@@ -458,8 +540,22 @@ sup {
 
 .comp-slide.active {
     opacity: 1;
-    z-index: 1;
+    z-index: 2;
     position: relative; /* Change to relative when active to take up space */
+}
+
+/* Fix for the invisible hyperlinks in DAVIS gallery slide */
+.comparison-video-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* Make sure inactive slides don't have clickable elements */
+.gallery-slide:not(.active) .comparison-video-link {
+    pointer-events: none;
 }
 
 /* Comparison description */

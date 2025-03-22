@@ -147,6 +147,272 @@
             background-color: #3f51b5;
         }
 
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+
+        .comparison-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: transparent;
+            object-fit: contain;
+        }
+
+        .method-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Add this to ensure proper JS video resizing and container wrapping */
+        .gallery-container.comparison-container {
+            overflow: visible;
+            width: 100%;
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: #f9f9f9;
+            padding: 20px;
+            min-height: 400px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .comparison-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: transparent;
+            object-fit: contain;
+        }
+
+        /* Styles for the pose evaluation gallery */
+        .pose-evaluation-section {
+            margin-top: 40px;
+        }
+        
+        .pose-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .pose-btn {
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .pose-btn.active {
+            background-color: #3f51b5;
+            color: white;
+        }
+        
+        .pose-gallery-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pose-slide {
+            display: none;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .pose-slide.active {
+            display: block;
+        }
+        
+        .pose-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .pose-image-item {
+            width: 30%;
+            text-align: center;
+        }
+        
+        .pose-image {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pose-label {
+            margin-top: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .pose-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .pose-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .pose-indicator.active {
+            background-color: #3f51b5;
+        }
+
+        /* Fix for the pose evaluation gallery */
+        .pose-gallery-container {
+            min-height: 400px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .pose-slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .pose-slide.active {
+            display: block;
+            position: relative;
+        }
+        
+        .pose-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 15px 0;
+            width: 100%;
+        }
+        
+        .pose-image-item {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        .pose-image {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+        }
+        
+        .pose-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .pose-label {
+            margin-top: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #444;
+        }
+
+        /* Additional fixes for comparison navigation */
+        .dataset-btn:not(.pose-dataset-btn).active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .dataset-btn.pose-dataset-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .dataset-buttons {
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+        
+        /* Fix for pose evaluation gallery */
+        .pose-gallery-container {
+            min-height: 400px;
+            height: auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: visible;
+            display: block;
+        }
+        
+        .pose-indicators {
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -187,17 +453,6 @@
     </header>
     
     <main>
-
-        <section id="abstract">
-            <div class="container">
-                <div class="section-box">
-                    <h2>Abstract</h2>
-                    <div class="abstract">
-                        <p>This paper presents a unified approach to understanding dynamic scenes from casual videos. Large pretrained vision models, such as vision-language, video depth prediction, motion tracking, and segmentation models, offer promising capabilities. However, training a single model for comprehensive 4D understanding remains challenging. We introduce Uni4D, a multi-stage optimization framework that harnesses multiple pretrained models to advance dynamic 3D modeling, including static/dynamic reconstruction, camera pose estimation, and dense 3D motion tracking. Our results show state-of-the-art performance in dynamic 4D modeling with superior visual quality. Notably, Uni4D requires no retraining or fine-tuning, highlighting the effectiveness of repurposing visual foundation models for 4D understanding.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section id="interactive" class="gallery-section">
             <div class="container">
@@ -242,7 +497,7 @@
                                 <div class="video-container">
                                     <div class="input-label">Input Video</div>
                                     <video class="gallery-video" autoplay loop muted playsinline controls>
-                                        <source src=https://davidyao99.github.io/uni4d/recordings/car-shadow.mp4" type="video/mp4">
+                                        <source src="https://davidyao99.github.io/uni4d/recordings/car-shadow.mp4" type="video/mp4">
                                         Your browser does not support video.
                                     </video>
                                 </div>
@@ -260,7 +515,7 @@
                                 <div class="video-container">
                                     <div class="input-label">Input Video</div>
                                     <video class="gallery-video" autoplay loop muted playsinline>
-                                        <source src=https://davidyao99.github.io/uni4d/recordings/soapbox.mp4" type="video/mp4">
+                                        <source src="https://davidyao99.github.io/uni4d/recordings/soapbox.mp4" type="video/mp4">
                                         Your browser does not support video.
                                     </video>
                                 </div>
@@ -341,12 +596,23 @@
             </div>
         </section>
 
+        <section id="abstract">
+            <div class="container">
+                <div class="section-box">
+                    <h2>Abstract</h2>
+                    <div class="abstract">
+                        <p>This paper presents a unified approach to understanding dynamic scenes from casual videos. Large pretrained vision models, such as vision-language, video depth prediction, motion tracking, and segmentation models, offer promising capabilities. However, training a single model for comprehensive 4D understanding remains challenging. We introduce Uni4D, a multi-stage optimization framework that harnesses multiple pretrained models to advance dynamic 3D modeling, including static/dynamic reconstruction, camera pose estimation, and dense 3D motion tracking. Our results show state-of-the-art performance in dynamic 4D modeling with superior visual quality. Notably, Uni4D requires no retraining or fine-tuning, highlighting the effectiveness of repurposing visual foundation models for 4D understanding.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="overview">
             <div class="container">
                 <div class="section-box">
                     <h2>Method Overview</h2>
                     <div class="overview">
-                        <img src="/api/placeholder/800/400" alt="Method Overview" class="overview-image">
+                        <img src="./assets/method.png" alt="Method Overview" class="overview-image">
                         <p class="abstract"></p>
                     </div>
                 </div>
@@ -354,10 +620,13 @@
         </section>
 
         <!-- Comparative Works Section -->
-        <section id="comparison">
+        <section id="comparisongeom">
             <div class="container">
                 <div class="section-box">
-                    <h2>Comparative Works</h2>
+                
+                    <h2>Results - Geometry</h2>
+
+                    <h3>Qualitative</h3>
                     
                     <!-- Dataset Selection Buttons -->
                     <div class="dataset-buttons">
@@ -375,241 +644,317 @@
                             <div class="comparison-grid">
                                 <!-- Row 1 -->
                                 <div class="comparison-item">
-                                    <div class="method-label">Uni4D (Ours)</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/sintel_uni4d_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/market_5_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/market_5_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
                                     <div class="method-label">MonST3R</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/sintel_nerf_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <a href="./recordings/market_5_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/market_5_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <div class="method-label">CasualSAM</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/sintel_mesh_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/market_5_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/market_5_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 
                                 <!-- Row 2 -->
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/sintel_uni4d_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/market_2_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/market_2_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/sintel_nerf_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">MonST3R</div>
+                                    <a href="./recordings/market_2_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/market_2_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/sintel_mesh_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/market_2_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/market_2_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                                                 
-                        <!-- Bonn Dataset -->
+                        <!-- TUMD Dataset -->
                         <div class="gallery-slide comp-slide">
                             <div class="comparison-grid">
                                 <!-- Row 1 -->
                                 <div class="comparison-item">
-                                    <div class="method-label">Uni4D (Ours)</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/bonn_uni4d_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/rgbd_dataset_freiburg3_sitting_xyz_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_dataset_freiburg3_sitting_xyz_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
                                     <div class="method-label">MonST3R</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/bonn_nerf_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <a href="./recordings/rgbd_dataset_freiburg3_sitting_xyz_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_dataset_freiburg3_sitting_xyz_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <div class="method-label">CasualSAM</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/bonn_mesh_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/rgbd_dataset_freiburg3_sitting_xyz_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_dataset_freiburg3_sitting_xyz_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 
                                 <!-- Row 2 -->
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/bonn_uni4d_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/rgbd_dataset_freiburg3_walking_halfsphere_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_dataset_freiburg3_walking_halfsphere_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/bonn_nerf_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">MonST3R</div>
+                                    <a href="./recordings/rgbd_dataset_freiburg3_walking_halfsphere_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_dataset_freiburg3_walking_halfsphere_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/bonn_mesh_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/rgbd_dataset_freiburg3_walking_halfsphere_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_dataset_freiburg3_walking_halfsphere_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Kitti Dataset -->
+                        <!-- BONN Dataset -->
                         <div class="gallery-slide comp-slide">
 
                             <div class="comparison-grid">
                                 <!-- Row 1 -->
                                 <div class="comparison-item">
-                                    <div class="method-label">Uni4D (Ours)</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/kitti_uni4d_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/rgbd_bonn_balloon_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_bonn_balloon_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
                                     <div class="method-label">MonST3R</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/kitti_nerf_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <a href="./recordings/rgbd_bonn_balloon_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_bonn_balloon_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <div class="method-label">CasualSAM</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/kitti_mesh_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/rgbd_bonn_balloon_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_bonn_balloon_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 
                                 <!-- Row 2 -->
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/kitti_uni4d_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/rgbd_bonn_crowd3_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_bonn_crowd3_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/kitti_nerf_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">MonST3R</div>
+                                    <a href="./recordings/rgbd_bonn_crowd3_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_bonn_crowd3_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/kitti_mesh_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/rgbd_bonn_crowd3__uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/rgbd_bonn_crowd3_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         
+                        <!-- KITTI Dataset -->
+                        <div class="gallery-slide comp-slide">
+                            <div class="comparison-grid">
+                                <!-- Row 1 -->
+                                <div class="comparison-item">
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/2011_09_26_drive_0023_sync_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/2011_09_26_drive_0023_sync_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">MonST3R</div>
+                                    <a href="./recordings/2011_09_26_drive_0023_sync_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/2011_09_26_drive_0023_sync_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/2011_09_26_drive_0023_sync_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/2011_09_26_drive_0023_sync_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
+                                </div>
+                                
+                                <!-- Row 2 -->
+                                <div class="comparison-item">
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/2011_09_26_drive_0002_sync_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/2011_09_26_drive_0002_sync_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">MonST3R</div>
+                                    <a href="./recordings/2011_09_26_drive_0002_sync_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/2011_09_26_drive_0002_sync_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/2011_09_26_drive_0002_sync_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/2011_09_26_drive_0002_sync_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- DAVIS Dataset -->
                         <div class="gallery-slide comp-slide">
                             <div class="comparison-grid">
                                 <!-- Row 1 -->
                                 <div class="comparison-item">
-                                    <div class="method-label">Uni4D (Ours)</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/davis_uni4d_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/soapbox_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/soapbox_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
                                     <div class="method-label">MonST3R</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/davis_nerf_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <a href="./recordings/soapbox_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/soapbox_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <div class="method-label">CasualSAM</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/davis_mesh_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/soapbox_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/soapbox_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 
                                 <!-- Row 2 -->
                                 <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/davis_uni4d_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
-                                </div>
-                                <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/davis_nerf_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
-                                </div>
-                                <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/davis_mesh_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- TUM-Dynamics Dataset -->
-                        <div class="gallery-slide comp-slide">
-                            <div class="comparison-grid">
-                                <!-- Row 1 -->
-                                <div class="comparison-item">
-                                    <div class="method-label">Uni4D (Ours)</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/tum_uni4d_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">CasualSAM</div>
+                                    <a href="./recordings/car-roundabout_casualSAM.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/car-roundabout_casualSAM.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
                                     <div class="method-label">MonST3R</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/tum_nerf_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <a href="./recordings/car-roundabout_monst3r.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/car-roundabout_monst3r.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                                 <div class="comparison-item">
-                                    <div class="method-label">CasualSAM</div>
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/tum_mesh_1.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
-                                </div>
-                                
-                                <!-- Row 2 -->
-                                <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/tum_uni4d_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
-                                </div>
-                                <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/tum_nerf_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
-                                </div>
-                                <div class="comparison-item">
-                                    <video class="comparison-video" autoplay loop muted playsinline>
-                                        <source src="videos/tum_mesh_2.mp4" type="video/mp4">
-                                        Your browser does not support video.
-                                    </video>
+                                    <div class="method-label">Uni4D (Ours)</div>
+                                    <a href="./recordings/car-roundabout_sync_uni4d.mp4" class="comparison-video-link" target="_blank">
+                                        <video class="comparison-video" autoplay loop muted playsinline>
+                                            <source src="./recordings/car-roundabout_uni4d.mp4" type="video/mp4">
+                                            Your browser does not support video.
+                                        </video>
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                    
                         <!-- Navigation Controls -->
                         <div class="gallery-nav comp-prev prev">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -631,51 +976,114 @@
                             <div class="gallery-indicator comp-indicator" data-index="4"></div>
                         </div>
                     </div>
+
+                    <h3>Quantitative</h3>
+
+                    <div class="overview">
+                        <img src="./assets/depth_results.png" alt="Method Overview" class="overview-image">
+                        <p class="abstract"></p>
+                    </div>
                     
                     <div class="comparison-description">
                         <p>We compare our Uni4D approach against state-of-the-art methods including traditional NeRF-based and CasualSAM reconstruction techniques across four standard datasets. Our method demonstrates superior visual quality, temporal consistency, and geometric accuracy across a variety of challenging scenes.</p>
                     </div>
+
                 </div>
             </div>
         </section>
-        
-        <section id="results">
+
+        <section id="comparisonpose">
             <div class="container">
                 <div class="section-box">
-                    <h2>Results</h2>
-                    <div class="results">
-                        <div class="result-card">
-                            <img src="/api/placeholder/400/200" alt="Result 1" class="result-image">
-                            <div class="result-content">
-                                <h3 class="result-title">Dynamic Human Reconstruction</h3>
-                                <p class="result-description">Our method accurately reconstructs human motion from multi-view video, capturing fine details in clothing and natural movement patterns.</p>
+                    
+                    <!-- Pose Evaluation Section -->
+                    <div class="pose-evaluation-section">
+                        <h2>Results - Pose</h2>
+
+                        <h3>Quantitative</h3>
+                        
+                        <!-- Pose Selection Buttons - changed to match dataset-buttons format -->
+                        <div class="dataset-buttons">
+                            <button class="dataset-btn pose-dataset-btn active" data-pose="0">Sintel</button>
+                            <button class="dataset-btn pose-dataset-btn" data-pose="1">TUM-Dynamics</button>
+                            <button class="dataset-btn pose-dataset-btn" data-pose="2">Bonn</button>
+                        </div>
+                        
+                        <!-- Pose Gallery -->
+                        <div class="gallery-container pose-gallery-container">
+                            <!-- Sintel Dataset -->
+                            <div class="pose-slide active">
+                                <div class="pose-image-container">
+                                    <div class="pose-image-item">
+                                        <img src="./assets/sintel_pose_qual.png" alt="Sintel Pose 1" class="pose-image">
+                                        <div class="pose-label">Sintel Pose 1</div>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            <!-- TUM-Dynamics Dataset -->
+                            <div class="pose-slide">
+                                <div class="pose-image-container">
+                                    <div class="pose-image-item">
+                                        <img src="./assets/tumd_pose_qual.png" alt="TUM Pose 1" class="pose-image">
+                                        <div class="pose-label">TUM Pose 1</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bonn Dataset -->
+                            <div class="pose-slide">
+                                <div class="pose-image-container">
+                                    <div class="pose-image-item">
+                                        <img src="./assets/bonn_pose_qual.png" alt="Bonn Pose 1" class="pose-image">
+                                        <div class="pose-label">Bonn Pose 1</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pose Indicators -->
+                        <div class="gallery-indicators pose-indicators">
+                            <div class="gallery-indicator pose-indicator active" data-pose-index="0"></div>
+                            <div class="gallery-indicator pose-indicator" data-pose-index="1"></div>
+                            <div class="gallery-indicator pose-indicator" data-pose-index="2"></div>
+                        </div>
+
+                        <h3>Quantitative</h3>
+
+                        <div class="overview">
+                            <img src="./assets/pose_results.png" alt="Method Overview" class="overview-image">
+                            <p class="abstract"></p>
+                        </div>
+                        
+                        <div class="pose-description">
+                            <p>Camera pose estimation results across different datasets. Our method achieves more accurate and consistent camera pose recovery compared to existing approaches.</p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="section-box">
-                    <h3>Citation</h3>
-                    <div class="citation">
-                        <pre>@InProceedings{YourName2023,
+            </div>
+        </section>
+
+        <div class="section-box">
+            <h3>Citation</h3>
+            <div class="citation">
+                <pre>@InProceedings{YourName2023,
     author    = {Author, First and Author, Second and Author, Third and Author, Fourth},
     title     = {4D Reconstruction: Dynamic Scene Understanding from Multiview Video},
     booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
     month     = {June},
-    year      = {2023},
+    year      = {2023}, 
     pages     = {1--10}
 }</pre>
-                    </div>
-                </div>
             </div>
-        </section>
+        </div>
     </main>
-    
+
     <footer>
         <div class="container">
             <div class="footer-content">
-                <p>© 2023 | This work was supported by [Funding Agency/Grant Number]</p>
                 <p>Website template created for CVPR paper presentation</p>
+                <p>© 2023 | This work was supported by [Funding Agency/Grant Number]</p>
             </div>
         </div>
     </footer>
@@ -683,31 +1091,181 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Video comparison functionality
             const datasetButtons = document.querySelectorAll('.dataset-btn');
             const compSlides = document.querySelectorAll('.comp-slide');
             const compIndicators = document.querySelectorAll('.comp-indicator');
-
-            datasetButtons.forEach((button, index) => {
-                button.addEventListener('click', () => {
-                    datasetButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    compSlides.forEach(slide => slide.classList.remove('active'));
-                    compSlides[index].classList.add('active');
-                    compIndicators.forEach(indicator => indicator.classList.remove('active'));
-                    compIndicators[index].classList.add('active');
+            const poseButtons = document.querySelectorAll('.pose-dataset-btn');
+            const poseSlides = document.querySelectorAll('.pose-slide');
+            const poseIndicators = document.querySelectorAll('.pose-indicator');
+            
+            // Function to adjust video container heights
+            function adjustVideoContainers() {
+                const videos = document.querySelectorAll('.comparison-video');
+                videos.forEach(video => {
+                    // Make sure the video is visible
+                    video.style.display = 'block';
+                    video.style.width = '100%';
+                    video.style.height = 'auto';
+                    
+                    // Handle video metadata loading
+                    if (video.readyState >= 1) {
+                        video.parentElement.style.height = 'auto';
+                    } else {
+                        video.addEventListener('loadedmetadata', function() {
+                            video.parentElement.style.height = 'auto';
+                        });
+                    }
+                });
+            }
+            
+            // Function to ensure all videos play in the currently visible slide
+            function playVisibleSlideVideos() {
+                // Find the active comp-slide
+                const activeSlide = document.querySelector('.comp-slide.active');
+                if (activeSlide) {
+                    // Find all videos in the active slide and play them
+                    const videos = activeSlide.querySelectorAll('video');
+                    videos.forEach(video => {
+                        // Reset the video to start playing from beginning
+                        video.currentTime = 0;
+                        
+                        // Force autoplay
+                        video.play().catch(error => {
+                            console.log("Auto-play was prevented:", error);
+                        });
+                    });
+                }
+            }
+            
+            // Call adjustVideoContainers initially and on window resize
+            adjustVideoContainers();
+            window.addEventListener('resize', adjustVideoContainers);
+            
+            // Make sure dataset buttons work correctly for comparison section
+            datasetButtons.forEach(button => {
+                if (!button.classList.contains('pose-dataset-btn')) {
+                    button.addEventListener('click', function() {
+                        // Get the dataset type
+                        const dataset = this.getAttribute('data-dataset');
+                        
+                        // Update button states
+                        datasetButtons.forEach(btn => {
+                            if (!btn.classList.contains('pose-dataset-btn')) {
+                                btn.classList.remove('active');
+                            }
+                        });
+                        this.classList.add('active');
+                        
+                        // Find the index of this dataset button among the non-pose buttons
+                        const datasets = ['sintel', 'tum', 'bonn', 'kitti', 'davis'];
+                        const index = datasets.indexOf(dataset);
+                        
+                        if (index !== -1) {
+                            // Update slides
+                            compSlides.forEach((slide, i) => {
+                                slide.classList.remove('active');
+                                if (i === index) {
+                                    slide.classList.add('active');
+                                    slide.style.position = 'relative';
+                                    slide.style.visibility = 'visible';
+                                    slide.style.opacity = '1';
+                                } else {
+                                    slide.style.position = 'absolute';
+                                    slide.style.visibility = 'hidden';
+                                    slide.style.opacity = '0';
+                                }
+                            });
+                            
+                            // Update indicators
+                            compIndicators.forEach((indicator, i) => {
+                                indicator.classList.remove('active');
+                                if (i === index) indicator.classList.add('active');
+                            });
+                            
+                            // Play videos in the active slide
+                            setTimeout(playVisibleSlideVideos, 100);
+                        }
+                    });
+                }
+            });
+            
+            // Make sure pose buttons work correctly
+            poseButtons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    // Update pose buttons
+                    poseButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update pose slides
+                    poseSlides.forEach(slide => slide.classList.remove('active'));
+                    if (poseSlides[index]) poseSlides[index].classList.add('active');
+                    
+                    // Update pose indicators
+                    poseIndicators.forEach(ind => ind.classList.remove('active'));
+                    if (poseIndicators[index]) poseIndicators[index].classList.add('active');
                 });
             });
-
-            compIndicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    compIndicators.forEach(ind => ind.classList.remove('active'));
-                    indicator.classList.add('active');
-                    compSlides.forEach(slide => slide.classList.remove('active'));
-                    compSlides[index].classList.add('active');
-                    datasetButtons.forEach(btn => btn.classList.remove('active'));
-                    datasetButtons[index].classList.add('active');
+            
+            // Make pose indicators work
+            poseIndicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', function() {
+                    // Update pose indicators
+                    poseIndicators.forEach(ind => ind.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update pose slides
+                    poseSlides.forEach(slide => slide.classList.remove('active'));
+                    if (poseSlides[index]) poseSlides[index].classList.add('active');
+                    
+                    // Update pose buttons
+                    poseButtons.forEach(btn => btn.classList.remove('active'));
+                    if (poseButtons[index]) poseButtons[index].classList.add('active');
                 });
             });
+            
+            // Navigation buttons for comparison gallery
+            const compPrevBtn = document.querySelector('.gallery-nav.comp-prev');
+            const compNextBtn = document.querySelector('.gallery-nav.comp-next');
+            
+            compPrevBtn.addEventListener('click', function() {
+                // Find current active comparison slide
+                let currentIndex = 0;
+                compSlides.forEach((slide, i) => {
+                    if (slide.classList.contains('active')) currentIndex = i;
+                });
+                
+                // Calculate previous index with wraparound
+                let prevIndex = currentIndex - 1;
+                if (prevIndex < 0) prevIndex = compSlides.length - 1;
+                
+                // Find dataset button and click it
+                const datasets = ['sintel', 'tum', 'bonn', 'kitti', 'davis'];
+                const prevDataset = datasets[prevIndex];
+                const prevBtn = document.querySelector(`.dataset-btn[data-dataset="${prevDataset}"]:not(.pose-dataset-btn)`);
+                if (prevBtn) prevBtn.click();
+            });
+            
+            compNextBtn.addEventListener('click', function() {
+                // Find current active comparison slide
+                let currentIndex = 0;
+                compSlides.forEach((slide, i) => {
+                    if (slide.classList.contains('active')) currentIndex = i;
+                });
+                
+                // Calculate next index with wraparound
+                let nextIndex = currentIndex + 1;
+                if (nextIndex >= compSlides.length) nextIndex = 0;
+                
+                // Find dataset button and click it
+                const datasets = ['sintel', 'tum', 'bonn', 'kitti', 'davis'];
+                const nextDataset = datasets[nextIndex];
+                const nextBtn = document.querySelector(`.dataset-btn[data-dataset="${nextDataset}"]:not(.pose-dataset-btn)`);
+                if (nextBtn) nextBtn.click();
+            });
+            
+            // Initialize video playback in first visible slide
+            playVisibleSlideVideos();
         });
     </script>
 </body>
