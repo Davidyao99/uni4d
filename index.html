@@ -13,7 +13,7 @@
             align-items: center;
             height: 100%;
             position: relative; /* For positioning overlay elements */
-            min-height: 430px; /* Ensure minimum height matches iframe container */
+            min-height: 380px; /* Further reduced from 400px for more compactness */
         }
         
         .video-container {
@@ -57,7 +57,7 @@
             height: 100%;
             flex-grow: 1;
             position: relative;
-            min-height: 430px; /* Set minimum height to ensure proper rendering */
+            min-height: 380px; /* Further reduced from 400px for more compactness */
         }
         
         .output-label {
@@ -88,10 +88,10 @@
             position: relative;
             display: flex;
             justify-content: center;
-            gap: 60px; /* Increased spacing between items */
-            margin-top: 10px; /* Reduced top margin to minimize space between elements */
-            margin-bottom: 15px;
-            padding: 8px 12px;
+            gap: 30px; /* Reduced from 40px */
+            margin-top: 3px; /* Reduced from 5px */
+            margin-bottom: 5px; /* Reduced from 10px */
+            padding: 4px 10px; /* Reduced from 6px 10px */
             background-color: #f5f5f5;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -130,7 +130,7 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduced from 15px */
             z-index: 20;
         }
         
@@ -181,7 +181,7 @@
             color: #333;
             margin-bottom: 8px;
             background-color: rgba(255, 255, 255, 0.8);
-            padding: 2px 8px;
+            padding: 4px 10px; /* Reduced from 6px 12px */
             border-radius: 4px;
         }
 
@@ -228,7 +228,7 @@
 
         /* Styles for the pose evaluation gallery */
         .pose-evaluation-section {
-            margin-top: 40px;
+            margin-top: 15px; /* Reduced from 25px */
         }
         
         .pose-buttons {
@@ -259,6 +259,10 @@
             margin-bottom: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            min-height: 350px; /* Reduced from 400px */
+            background-color: #f9f9f9;
+            padding: 15px; /* Reduced from 20px */
+            display: block;
         }
         
         .pose-slide {
@@ -275,12 +279,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 20px; /* Reduced from 30px */
             flex-wrap: wrap;
+            padding: 10px 0; /* Reduced from 15px 0 */
+            width: 100%;
         }
         
         .pose-image-item {
-            width: 30%;
+            width: auto;
             text-align: center;
         }
         
@@ -301,7 +307,8 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 10px; /* Reduced from 15px */
+            margin-bottom: 15px; /* Reduced from 20px */
         }
         
         .pose-indicator {
@@ -319,7 +326,7 @@
 
         /* Fix for the pose evaluation gallery */
         .pose-gallery-container {
-            min-height: 400px;
+            min-height: 350px; /* Reduced from 400px */
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
@@ -352,8 +359,7 @@
         }
         
         .pose-image-item {
-            width: 80%;
-            max-width: 600px;
+            width: 100%;
             text-align: center;
             margin: 0 auto;
         }
@@ -391,13 +397,13 @@
         }
         
         .dataset-buttons {
-            margin-top: 15px;
-            margin-bottom: 25px;
+            margin-top: 10px; /* Reduced from 15px */
+            margin-bottom: 15px; /* Reduced from 25px */
         }
         
         /* Fix for pose evaluation gallery */
         .pose-gallery-container {
-            min-height: 400px;
+            min-height: 350px; /* Reduced from 400px */
             height: auto;
             background-color: #f9f9f9;
             padding: 20px;
@@ -412,6 +418,25 @@
         .pose-indicators {
             margin-top: 15px;
             margin-bottom: 20px;
+        }
+
+        /* Reduce vertical spacing between elements */
+        p {
+            margin-bottom: 0.75rem;
+        }
+
+        /* More compact spacing in the abstract */
+        .abstract {
+            line-height: 1.7; /* Reduced from 1.8 */
+        }
+
+        /* Make quantitative results more compact */
+        .quantitative-results {
+            padding: 12px;
+        }
+
+        .quantitative-results.full-width {
+            padding: 10px;
         }
     </style>
 </head>
@@ -429,24 +454,36 @@
                     <div class="institution"><sup>1</sup>University of Illinois, Urbana Champaign</div>
                 </div>
                 <div class="buttons">
-                    <a href="#" class="btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                        </svg>
-                        Paper
-                    </a>
-                    <a href="#" class="btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
-                        Code
-                    </a>
-                    <a href="#" class="btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
-                        Results
-                    </a>
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text-center">
+                            <span class="link-block">
+                                <a href="" class="external-link button is-normal is-rounded is-dark btn">
+                                    <span class="icon">
+                                        <svg class="svg-inline--fa fa-file-pdf fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas"
+                                            data-icon="file-pdf" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="-24 -32 432 576"
+                                            data-fa-i2svg="">
+                                            <path fill="currentColor"
+                                                d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <span>Paper</span>
+                                </a>
+                            </span> &nbsp;
+                            <span class="link-block">
+                                <a href="" class="external-link button is-normal is-rounded is-dark btn">
+                                    <span class="icon">
+                                        <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab"
+                                            data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg="">
+                                            <path fill="currentColor"
+                                                d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
+                                        </svg>
+                                    </span>
+                                    <span>Code</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -474,7 +511,7 @@
                             <div class="gallery-content">
                                 <div class="iframe-container">
                                     <div class="output-label">4D Reconstruction</div>
-                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/lady-running.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 1" allowfullscreen></iframe>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/lady-running.viser&initDistanceScale=1.3&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 1" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
                                     <div class="input-label">Input Video</div>
@@ -492,7 +529,7 @@
                             <div class="gallery-content">
                                 <div class="iframe-container">
                                     <div class="output-label">4D Reconstruction</div>
-                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/car-shadow.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" allowfullscreen></iframe>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/car-shadow.viser&initDistanceScale=0.8&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
                                     <div class="input-label">Input Video</div>
@@ -510,7 +547,7 @@
                             <div class="gallery-content">
                                 <div class="iframe-container">
                                     <div class="output-label">4D Reconstruction</div>
-                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/soapbox.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 3" allowfullscreen></iframe>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/soapbox.viser&initDistanceScale=0.9&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 3" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
                                     <div class="input-label">Input Video</div>
@@ -528,12 +565,12 @@
                             <div class="gallery-content">
                                 <div class="iframe-container">
                                     <div class="output-label">4D Reconstruction</div>
-                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/longboard.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 4" allowfullscreen></iframe>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/longboard.viser&initDistanceScale=1.0&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 4" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
                                     <div class="input-label">Input Video</div>
                                     <video class="gallery-video" autoplay loop muted playsinline>
-                                        <source src="https://davidyao99.github.io/uni4d/recordings/ongboard.mp4" type="video/mp4">
+                                        <source src="https://davidyao99.github.io/uni4d/recordings/longboard.mp4" type="video/mp4">
                                         Your browser does not support video.
                                     </video>
                                 </div>
@@ -546,7 +583,7 @@
                             <div class="gallery-content">
                                 <div class="iframe-container">
                                     <div class="output-label">4D Reconstruction</div>
-                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance-flare.viser&initDistanceScale=0.4&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 5" allowfullscreen></iframe>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance-flare.viser&initDistanceScale=1.6&initHeightOffset=0.0" class="gallery-iframe" title="Interactive Result 5" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
                                     <div class="input-label">Input Video</div>
@@ -613,8 +650,11 @@
                     <h2>Method Overview</h2>
                     <div class="overview">
                         <img src="./assets/method.png" alt="Method Overview" class="overview-image">
-                        <p class="abstract"></p>
                     </div>
+                    <div class="description">
+                        <p>Given a casually captured video, Uni4D harnesses visual foundation models and structured prediction to jointly estimate camera
+                            poses, dynamic geometry, and dense 3D motion. Static geometry and poses are obtained through tracklet-based structure-from-motion using predicted depths.
+                            Dynamic geometry is improved through smoothness and ARAP motion priors. A final fusion densifies geometry to obtain high quality 4D reconstruction.</p>
                 </div>
             </div>
         </section>
@@ -978,14 +1018,12 @@
                     </div>
 
                     <h3>Quantitative</h3>
-
-                    <div class="overview">
-                        <img src="./assets/depth_results.png" alt="Method Overview" class="overview-image">
-                        <p class="abstract"></p>
+                    <div class="quantitative-results">
+                        <img src="./assets/depth_results.png" alt="Depth Evaluation Results" class="results-image">
                     </div>
                     
-                    <div class="comparison-description">
-                        <p>We compare our Uni4D approach against state-of-the-art methods including traditional NeRF-based and CasualSAM reconstruction techniques across four standard datasets. Our method demonstrates superior visual quality, temporal consistency, and geometric accuracy across a variety of challenging scenes.</p>
+                    <div class="description">
+                        <p>We compare Uni4d geometry both qualitatively and quantitatively over multiple datasets against strong baselines ranging from metric depth models such as Metric3D, DepthPro, and reconstruction methods such as CasualSAM and MonST3R. Uni4D demonstrates superior visual quality, temporal consistency, and geometric accuracy across a variety of challenging scenes across various datasets. Quantative evaluation through depthmap metrics further supports Uni4D's reconstruction geometry.</p>
                     </div>
 
                 </div>
@@ -1015,7 +1053,9 @@
                             <div class="pose-slide active">
                                 <div class="pose-image-container">
                                     <div class="pose-image-item">
-                                        <img src="./assets/sintel_pose_qual.png" alt="Sintel Pose 1" class="pose-image">
+                                        <a href="./assets/sintel_pose_qual.png" target="_blank" class="pose-image-link">
+                                            <img src="./assets/sintel_pose_qual.png" alt="Sintel Pose 1" class="pose-image">
+                                        </a>
                                         <div class="pose-label">Sintel Pose 1</div>
                                     </div>
                                 </div>
@@ -1025,7 +1065,9 @@
                             <div class="pose-slide">
                                 <div class="pose-image-container">
                                     <div class="pose-image-item">
-                                        <img src="./assets/tumd_pose_qual.png" alt="TUM Pose 1" class="pose-image">
+                                        <a href="./assets/tumd_pose_qual.png" target="_blank" class="pose-image-link">
+                                            <img src="./assets/tumd_pose_qual.png" alt="TUM Pose 1" class="pose-image">
+                                        </a>
                                         <div class="pose-label">TUM Pose 1</div>
                                     </div>
                                 </div>
@@ -1035,10 +1077,24 @@
                             <div class="pose-slide">
                                 <div class="pose-image-container">
                                     <div class="pose-image-item">
-                                        <img src="./assets/bonn_pose_qual.png" alt="Bonn Pose 1" class="pose-image">
+                                        <a href="./assets/bonn_pose_qual.png" target="_blank" class="pose-image-link">
+                                            <img src="./assets/bonn_pose_qual.png" alt="Bonn Pose 1" class="pose-image">
+                                        </a>
                                         <div class="pose-label">Bonn Pose 1</div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- Add navigation buttons for pose gallery -->
+                            <div class="gallery-nav pose-prev prev">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                                </svg>
+                            </div>
+                            <div class="gallery-nav pose-next next">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                                </svg>
                             </div>
                         </div>
                         
@@ -1050,33 +1106,18 @@
                         </div>
 
                         <h3>Quantitative</h3>
-
-                        <div class="overview">
-                            <img src="./assets/pose_results.png" alt="Method Overview" class="overview-image">
-                            <p class="abstract"></p>
+                        <div class="quantitative-results full-width">
+                            <img src="./assets/pose_results.png" alt="Pose Evaluation Results" class="results-image">
                         </div>
                         
-                        <div class="pose-description">
-                            <p>Camera pose estimation results across different datasets. Our method achieves more accurate and consistent camera pose recovery compared to existing approaches.</p>
+                        <div class="description">
+                            <p>We compare Uni4d pose estimation both qualitatively and quantitatively over multiple datasets against strong baselines such as LEAPVO, DPVO, CasualSAM and MonST3R. Uni4D demonstrates accurate and smooth camera poses across a variety of challenging scenes across various datasets. Quantative evaluation through pose evaluation metrics further supports Uni4D's pose estimation results.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="section-box">
-            <h3>Citation</h3>
-            <div class="citation">
-                <pre>@InProceedings{YourName2023,
-    author    = {Author, First and Author, Second and Author, Third and Author, Fourth},
-    title     = {4D Reconstruction: Dynamic Scene Understanding from Multiview Video},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2023}, 
-    pages     = {1--10}
-}</pre>
-            </div>
-        </div>
     </main>
 
     <footer>
@@ -1264,8 +1305,60 @@
                 if (nextBtn) nextBtn.click();
             });
             
+            // Navigation buttons for pose gallery
+            const posePrevBtn = document.querySelector('.gallery-nav.pose-prev');
+            const poseNextBtn = document.querySelector('.gallery-nav.pose-next');
+            
+            if (posePrevBtn && poseNextBtn) {
+                posePrevBtn.addEventListener('click', function() {
+                    // Find current active pose slide
+                    let currentIndex = 0;
+                    poseSlides.forEach((slide, i) => {
+                        if (slide.classList.contains('active')) currentIndex = i;
+                    });
+                    
+                    // Calculate previous index with wraparound
+                    let prevIndex = currentIndex - 1;
+                    if (prevIndex < 0) prevIndex = poseSlides.length - 1;
+                    
+                    // Find pose button and click it
+                    const poseBtn = document.querySelector(`.pose-dataset-btn:nth-child(${prevIndex + 1})`);
+                    if (poseBtn) poseBtn.click();
+                });
+                
+                poseNextBtn.addEventListener('click', function() {
+                    // Find current active pose slide
+                    let currentIndex = 0;
+                    poseSlides.forEach((slide, i) => {
+                        if (slide.classList.contains('active')) currentIndex = i;
+                    });
+                    
+                    // Calculate next index with wraparound
+                    let nextIndex = currentIndex + 1;
+                    if (nextIndex >= poseSlides.length) nextIndex = 0;
+                    
+                    // Find pose button and click it
+                    const poseBtn = document.querySelector(`.pose-dataset-btn:nth-child(${nextIndex + 1})`);
+                    if (poseBtn) poseBtn.click();
+                });
+            }
+            
             // Initialize video playback in first visible slide
             playVisibleSlideVideos();
+            
+            // Remove any existing play overlays from Sintel videos specifically
+            const sintelSlide = document.querySelector('.comp-slide:first-child');
+            if (sintelSlide) {
+                const overlays = sintelSlide.querySelectorAll('.video-play-overlay');
+                overlays.forEach(overlay => overlay.remove());
+                
+                // Force play Sintel videos again without adding overlay on failure
+                const sintelVideos = sintelSlide.querySelectorAll('video');
+                sintelVideos.forEach(video => {
+                    video.muted = true; // Ensure muted to allow autoplay
+                    video.play().catch(e => console.log('Sintel video autoplay prevented:', e));
+                });
+            }
         });
     </script>
 </body>

@@ -25,7 +25,7 @@
     --dark-color: #2c3e50;
     --text-color: #333;
     --max-width: 1200px;
-    --section-spacing: 4rem;
+    --section-spacing: 2rem; /* Reduced from 4rem to make layout more compact */
     --border-radius: 8px;
     --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
@@ -53,28 +53,28 @@ body {
 }
 
 section {
-    padding: var(--section-spacing) 0;
+    padding: var(--section-spacing) 0; /* Using the reduced spacing variable */
 }
 
 .section-box {
     background-color: white;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    padding: 2.5rem;
-    margin-bottom: 3rem;
+    padding: 1.5rem; /* Reduced from 2.5rem */
+    margin-bottom: 1.5rem; /* Reduced from 3rem */
     border: 1px solid #eaeaea;
 }
 
 h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 1.8rem; /* Reduced from 2rem */
+    margin-bottom: 1.5rem; /* Reduced from 2rem */
     color: var(--secondary-color);
     text-align: center;
 }
 
 h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.4rem; /* Reduced from 1.5rem */
+    margin-bottom: 0.75rem; /* Reduced from 1rem */
     color: var(--secondary-color);
 }
 
@@ -84,7 +84,7 @@ h3 {
 header {
     background-color: #ffffff;
     color: var(--secondary-color);
-    padding: 4rem 0;
+    padding: 2.5rem 0; /* Reduced from 4rem */
     text-align: center;
     border-bottom: 1px solid #eaeaea;
 }
@@ -101,7 +101,7 @@ h1 {
 }
 
 .authors {
-    margin: 2rem 0;
+    margin: 1rem 0; /* Reduced from 2rem */
     font-size: 1.1rem;
 }
 
@@ -135,9 +135,60 @@ sup {
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    margin: 2rem 0;
+    margin: 1rem 0;
     flex-wrap: wrap;
+    width: 100%;
+}
+
+.row {
+    width: 100%;
+}
+
+.col-sm-8.col-sm-offset-2 {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.link-block {
+    display: inline-block;
+}
+
+.btn, .external-link.button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.8rem; /* Increased padding for larger buttons */
+    border-radius: 1rem; /* Rounded button */
+    font-weight: 600;
+    font-size: 1.2rem; /* Larger font size */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background-color: #2c3e50;  /* Dark color to match the SVG buttons */
+    color: white;
+    border: none;
+    margin: 0 8px;
+}
+
+.btn:hover, .external-link.button:hover {
+    background-color: #34495e;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+.svg-inline--fa {
+    width: 22px; /* Increased icon size */
+    height: 22px; /* Increased icon size */
+    color: currentColor;
 }
 
 .btn {
@@ -171,7 +222,7 @@ sup {
    ========================================= */
 .gallery-section {
     position: relative;
-    margin: 2rem 0 4rem 0;
+    margin: 1rem 0 2rem 0; /* Reduced from 2rem 0 4rem 0 */
     padding: 0;
 }
 
@@ -369,8 +420,8 @@ sup {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem; /* Reduced from 3rem */
-    margin: 2rem 0; /* Reduced from 3rem */
+    gap: 1.5rem; /* Already reduced from 3rem to 2rem, now to 1.5rem */
+    margin: 1.5rem 0; /* Already reduced from 3rem to 2rem, now to 1.5rem */
 }
 
 .overview-image {
@@ -398,6 +449,31 @@ sup {
     height: auto;
 }
 
+/* Description styling - used for all description text */
+.description {
+    font-size: 1.35rem;  /* Increased font size */
+    line-height: 1.8;
+    text-align: left;
+    max-width: auto;
+    margin: 1.5rem 0;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.description p {
+    text-indent: 2em;  /* 2 tabs of space at the beginning of paragraphs */
+    margin-bottom: 1rem;
+}
+
+
+/* More visible and prominent description styling */
+.section-box .description {
+    background-color: #f8f9fa;
+    padding: 1.25rem;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
 /* =========================================
    7. Comparison Section
    ========================================= */
@@ -408,7 +484,7 @@ sup {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem; /* Reduced from 2rem */
 }
 
 /* Dataset button styling */
@@ -440,14 +516,14 @@ sup {
 /* Container for comparison gallery */
 .comparison-container {
     height: auto;
-    min-height: 700px; /* Reduced from 800px */
-    margin-bottom: 2rem;
+    min-height: 650px; /* Reduced from 700px */
+    margin-bottom: 1.5rem; /* Reduced from 2rem */
 }
 
 /* Dataset title */
 .dataset-title {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem; /* Reduced from 1.5rem */
     font-size: 1.8rem;
     color: var(--primary-color);
     font-weight: 600;
@@ -471,7 +547,7 @@ sup {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     background-color: #000;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 250px; /* Reduced from 280px */
+    height: 220px; /* Reduced from 250px */
     z-index: 1; /* Ensure proper stacking */
 }
 
@@ -560,7 +636,7 @@ sup {
 
 /* Comparison description */
 .comparison-description {
-    margin-top: 2rem;
+    margin-top: 1.5rem; /* Reduced from 2rem */
     text-align: center;
     max-width: 800px;
     margin-left: auto;
@@ -573,8 +649,8 @@ sup {
 .results {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+    gap: 1.5rem; /* Reduced from 2rem */
+    margin-top: 1.5rem; /* Reduced from 3rem */
 }
 
 .result-card {
@@ -598,7 +674,7 @@ sup {
 }
 
 .result-content {
-    padding: 1.5rem;
+    padding: 1.2rem; /* Reduced from 1.5rem */
 }
 
 .result-title {
@@ -614,7 +690,7 @@ sup {
 
 .citation {
     background-color: var(--light-color);
-    padding: 2rem;
+    padding: 1.5rem; /* Reduced from 2rem */
     border-radius: var(--border-radius);
     margin-top: 2rem;
 }
@@ -634,9 +710,9 @@ sup {
 footer {
     background-color: var(--secondary-color);
     color: white;
-    padding: 2rem 0;
+    padding: 1.5rem 0; /* Reduced from 2rem */
     text-align: center;
-    margin-top: 4rem;
+    margin-top: 2rem; /* Reduced from 4rem */
 }
 
 .footer-content {
