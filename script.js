@@ -519,9 +519,10 @@ function playVideo(video) {
  * Add click handlers to all videos to toggle play/pause
  */
 function addVideoClickHandlers() {
-    const allVideos = document.querySelectorAll('video');
+    // Only add click handlers to main gallery videos, not comparison videos
+    const mainGalleryVideos = document.querySelectorAll('.gallery-slide:not(.comp-slide) video');
     
-    allVideos.forEach(video => {
+    mainGalleryVideos.forEach(video => {
         video.addEventListener('click', function() {
             if (this.paused) {
                 this.play().catch(e => console.log('Video play prevented:', e));

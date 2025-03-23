@@ -751,7 +751,9 @@ sup {
     object-fit: cover;
     background-color: #000;
     display: block;
-    cursor: pointer; /* Indicate it's clickable */
+    cursor: default; /* Changed from pointer to default */
+    pointer-events: none; /* This makes videos unclickable */
+    user-select: none; /* Prevent selection */
 }
 
 /* Video play overlay */
@@ -805,6 +807,7 @@ sup {
     height: 100%;
     position: relative;
     z-index: 1;
+    cursor: pointer; /* Make it clear this is clickable */
 }
 
 /* Make sure inactive slides don't have clickable elements */
