@@ -542,39 +542,40 @@ sup {
     z-index: 5;
 }
 
-/* Updated interaction guide styles for smaller icons in one row */
+/* Updated interaction guide styles with improved responsive scaling */
 .interaction-guide {
     position: relative;
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: clamp(15px, 3vw, 40px); /* Responsive gap that scales with viewport width */
     margin-top: 15px;
     margin-bottom: 10px;
-    padding: 12px;
+    padding: clamp(8px, 2vw, 12px);
     background-color: #f5f5f5;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-items: center; /* Ensure vertical alignment */
+    align-items: center;
 }
 
 .interaction-item {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: clamp(5px, 1vw, 10px); /* Responsive gap that scales with viewport */
     text-align: center;
-    flex: 0 1 auto; /* Allow items to grow slightly but not shrink */
+    flex: 0 1 auto;
 }
 
 .interaction-icon {
-    width: 20px; /* Smaller icon size */
-    height: 20px;
+    width: clamp(16px, 1.5vw, 20px); /* Responsive size that scales with viewport */
+    height: clamp(16px, 1.5vw, 20px);
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0; /* Prevent icon from shrinking */
 }
 
 .interaction-icon img {
@@ -584,10 +585,10 @@ sup {
 }
 
 .interaction-text {
-    font-size: 14px;
+    font-size: clamp(11px, 1vw, 14px); /* Responsive font size that scales with viewport */
     font-weight: 500;
     color: #333;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 /* =========================================
@@ -597,7 +598,7 @@ sup {
     max-width: 800px;
     margin: 0 auto;
     text-align: justify;
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.1rem);
     line-height: 1.8;
 }
 
@@ -634,27 +635,27 @@ sup {
     height: auto;
 }
 
-/* Description styling - used for all description text */
+/* Description styling - updated for responsive sizing */
 .description {
-    font-size: 1.35rem;  /* Increased font size */
-    line-height: 1.8;
+    /* Base font size using calc() for fluid typography */
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.35rem);
+    line-height: 1.6;
     text-align: left;
-    max-width: auto;
+    max-width: 100%;
     margin: 1.5rem 0;
     color: #333;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .description p {
-    text-indent: 2em;  /* 2 tabs of space at the beginning of paragraphs */
+    text-indent: 2em;
     margin-bottom: 1rem;
 }
-
 
 /* More visible and prominent description styling */
 .section-box .description {
     background-color: #f8f9fa;
-    padding: 1.25rem;
+    padding: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
@@ -968,7 +969,21 @@ footer {
     }
     
     .abstract {
-        font-size: 1rem;
+        /* Slightly smaller on medium devices */
+        font-size: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+        line-height: 1.7;
+        text-align: left;
+        padding: 0 0.5rem;
+    }
+    
+    .description {
+        /* Adjusted for medium devices */
+        font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.1rem);
+        line-height: 1.6;
+    }
+    
+    .section-box .description {
+        padding: 0.9rem;
     }
     
     .gallery-container {
@@ -1018,17 +1033,17 @@ footer {
     }
     
     .interaction-guide {
-        padding: 10px;
-        gap: 20px;
+        padding: 8px;
+        gap: clamp(10px, 2vw, 20px);
     }
     
     .interaction-icon {
-        width: 18px;
-        height: 18px;
+        width: clamp(15px, 1.5vw, 18px);
+        height: clamp(15px, 1.5vw, 18px);
     }
     
     .interaction-text {
-        font-size: 12px;
+        font-size: clamp(10px, 1vw, 12px);
     }
 }
 
@@ -1061,7 +1076,7 @@ footer {
     }
     
     .interaction-guide {
-        gap: 12px;
+        gap: clamp(8px, 1.5vw, 12px);
         justify-content: space-around;
     }
     
@@ -1069,6 +1084,22 @@ footer {
     .interaction-item {
         flex-basis: auto;
         width: auto;
+    }
+    
+    .description {
+        /* Smaller font size but still readable on small devices */
+        font-size: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+        line-height: 1.5;
+    }
+    
+    .section-box .description {
+        padding: 0.75rem;
+    }
+    
+    .abstract {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        padding: 0 0.25rem;
     }
     
     .iframe-container {
@@ -1109,13 +1140,52 @@ footer {
         top: 5px;
         right: 5px;
     }
+    
+    .description {
+        /* Even smaller for very small devices */
+        font-size: 0.9rem;
+        text-indent: 1em;
+    }
+    
+    .section-box .description {
+        padding: 0.6rem;
+    }
+    
+    .interaction-guide {
+        flex-wrap: wrap; /* Allow wrapping on very small screens */
+        gap: 5px;
+        padding: 6px;
+    }
+    
+    .interaction-item {
+        margin: 3px 0;
+        flex-basis: 45%; /* Allow 2 items per row on very small screens */
+        justify-content: center;
+    }
+    
+    .interaction-icon {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .interaction-text {
+        font-size: 10px;
+    }
 }
 
-/* Media query for larger screens to maintain squarish ratio */
+/* Add a new media query for larger screens */
 @media (min-width: 1200px) {
     .iframe-container {
         padding-bottom: 75%; /* Slightly wider for large screens but still squarish */
         max-width: 1000px;
         margin: 10px auto;
+    }
+    
+    .description {
+        /* Slightly larger font on big screens for better readability */
+        font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
