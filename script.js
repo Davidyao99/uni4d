@@ -16,17 +16,29 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /**
- * Initialize the main interactive results gallery
+ * Initialize the main interactive results gallery - fixed logic
  */
 function initMainGallery() {
     const slides = document.querySelectorAll('.gallery-slide:not(.comp-slide)');
-    const prevBtn = document.querySelector('.gallery-nav.prev:not(.comp-prev)');
-    const nextBtn = document.querySelector('.gallery-nav.next:not(.comp-next)');
-    const indicators = document.querySelectorAll('.gallery-indicator:not(.comp-indicator)');
+    const prevBtn = document.querySelector('.gallery-nav.prev:not(.comp-prev):not(.pose-prev)');
+    const nextBtn = document.querySelector('.gallery-nav.next:not(.comp-next):not(.pose-next)');
+    const indicators = document.querySelectorAll('.gallery-indicator:not(.comp-indicator):not(.pose-indicator)');
     
     // Exit if required elements don't exist
-    if (!slides.length || !prevBtn || !nextBtn || !indicators.length) {
-        console.warn('Main gallery initialization failed: Missing required elements');
+    if (!slides.length) {
+        console.warn('Main gallery initialization failed: Missing slides');
+        return;
+    }
+    
+    if (!prevBtn || !nextBtn) {
+        console.warn('Main gallery initialization failed: Missing navigation buttons');
+        console.log('prevBtn:', prevBtn);
+        console.log('nextBtn:', nextBtn);
+        return;
+    }
+    
+    if (!indicators.length) {
+        console.warn('Main gallery initialization failed: Missing indicators');
         return;
     }
     
@@ -37,7 +49,6 @@ function initMainGallery() {
     
     /**
      * Update the slide display to show the slide at the specified index
-     * @param {number} index - The index of the slide to display
      */
     function updateSlide(index) {
         // Hide all slides
@@ -60,16 +71,19 @@ function initMainGallery() {
                 if (i === index) {
                     playVideo(video);
                 } else {
-                    video.pause();
+                    if (video && !video.paused) video.pause();
                 }
             });
         });
+
+        console.log('Switched to slide:', index);
     }
     
     /**
      * Move to the next slide in the gallery
      */
     function nextSlide() {
+        console.log('Next button clicked');
         let newIndex = currentSlideIndex + 1;
         if (newIndex >= slides.length) {
             newIndex = 0; // Loop to the first slide
@@ -81,6 +95,7 @@ function initMainGallery() {
      * Move to the previous slide in the gallery
      */
     function previousSlide() {
+        console.log('Previous button clicked');
         let newIndex = currentSlideIndex - 1;
         if (newIndex < 0) {
             newIndex = slides.length - 1; // Loop to the last slide
@@ -88,9 +103,16 @@ function initMainGallery() {
         updateSlide(newIndex);
     }
     
-    // Add event listeners for navigation
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', previousSlide);
+    // Add event listeners for navigation with debugging
+    nextBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        nextSlide();
+    });
+    
+    prevBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        previousSlide();
+    });
     
     // Add event listeners for indicator dots
     indicators.forEach((indicator, index) => {
@@ -99,6 +121,9 @@ function initMainGallery() {
     
     // Initialize the first slide
     updateSlide(0);
+
+    // Log that gallery is initialized
+    console.log('Interactive gallery initialized with', slides.length, 'slides');
 }
 
 /**
@@ -250,16 +275,16 @@ function initDatasetButtons() {
 
 /**
  * Helper function to play a video with error handling
- * @param {HTMLVideoElement} video - The video element to play
+ * This function is essential and was previously commented out
  */
 function playVideo(video) {
-    if (video.paused) {
+    if (video && video.paused) {
         video.play().catch(error => {
             console.log('Video autoplay prevented:', error);
             
             // Skip adding play overlay for Sintel dataset videos
             const isInSintelSlide = video.closest('.comp-slide') && 
-                                   video.closest('.comp-slide') === document.querySelector('.comp-slide:first-child');
+                                  video.closest('.comp-slide') === document.querySelector('.comp-slide:first-child');
             
             // Add a playback overlay only if not in Sintel slide
             if (!isInSintelSlide && !video.parentElement.querySelector('.video-play-overlay')) {
