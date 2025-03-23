@@ -5,440 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4D Reconstruction Research</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Added inline styles for gallery layout adjustments */
-        .gallery-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-            position: relative; /* For positioning overlay elements */
-            min-height: 380px; /* Further reduced from 400px for more compactness */
-        }
-        
-        .video-container {
-            width: 30%;
-            max-width: 600px;
-            border: 3px solid #3f51b5;
-            border-radius: 6px;
-            padding: 10px;
-            background-color: #f5f9ff;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 10; /* Ensure video sits on top */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-        
-        .input-label {
-            position: absolute;
-            top: -12px;
-            left: 15px;
-            background-color: #3f51b5;
-            color: white;
-            padding: 2px 10px;
-            font-size: 14px;
-            border-radius: 3px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-        
-        .gallery-video {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .iframe-container {
-            width: 100%;
-            height: 100%;
-            flex-grow: 1;
-            position: relative;
-            min-height: 380px; /* Further reduced from 400px for more compactness */
-        }
-        
-        .output-label {
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            background-color: #4caf50;
-            color: white;
-            padding: 2px 10px;
-            font-size: 14px;
-            border-radius: 3px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-            z-index: 5;
-        }
-        
-        .gallery-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background-color: #f5f5f5;
-            border-radius: 4px;
-        }
-        
-        /* Updated styles for interaction instructions */
-        .interaction-guide {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            gap: 30px; /* Reduced from 40px */
-            margin-top: 3px; /* Reduced from 5px */
-            margin-bottom: 5px; /* Reduced from 10px */
-            padding: 4px 10px; /* Reduced from 6px 10px */
-            background-color: #f5f5f5;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            z-index: 5;
-            width: 100%;
-        }
-        
-        .interaction-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            text-align: center;
-        }
-        
-        .interaction-icon {
-            width: 30px; /* Smaller icon size */
-            height: 30px;
-        }
-        
-        .interaction-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .interaction-text {
-            font-size: 14px;
-            font-weight: 500;
-            color: #333;
-        }
-        
-        /* Updated styles for gallery indicators */
-        .gallery-indicators {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 10px; /* Reduced from 15px */
-            z-index: 20;
-        }
-        
-        .gallery-indicator {
-            width: 12px;
-            height: 12px;
-            background-color: #ccc;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .gallery-indicator.active {
-            background-color: #3f51b5;
-        }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .comparison-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            text-align: center;
-            width: 100%;
-            height: auto;
-            position: relative;
-        }
-
-        .comparison-video {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            background-color: transparent;
-            object-fit: contain;
-        }
-
-        .method-label {
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 4px 10px; /* Reduced from 6px 12px */
-            border-radius: 4px;
-        }
-
-        /* Add this to ensure proper JS video resizing and container wrapping */
-        .gallery-container.comparison-container {
-            overflow: visible;
-            width: 100%;
-            position: relative;
-            margin-bottom: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            background: #f9f9f9;
-            padding: 20px;
-            min-height: 400px;
-        }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .comparison-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            text-align: center;
-            width: 100%;
-            position: relative;
-        }
-
-        .comparison-video {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            background-color: transparent;
-            object-fit: contain;
-        }
-
-        /* Styles for the pose evaluation gallery */
-        .pose-evaluation-section {
-            margin-top: 15px; /* Reduced from 25px */
-        }
-        
-        .pose-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .pose-btn {
-            padding: 8px 16px;
-            background-color: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .pose-btn.active {
-            background-color: #3f51b5;
-            color: white;
-        }
-        
-        .pose-gallery-container {
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            min-height: 350px; /* Reduced from 400px */
-            background-color: #f9f9f9;
-            padding: 15px; /* Reduced from 20px */
-            display: block;
-        }
-        
-        .pose-slide {
-            display: none;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        
-        .pose-slide.active {
-            display: block;
-        }
-        
-        .pose-image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px; /* Reduced from 30px */
-            flex-wrap: wrap;
-            padding: 10px 0; /* Reduced from 15px 0 */
-            width: 100%;
-        }
-        
-        .pose-image-item {
-            width: auto;
-            text-align: center;
-        }
-        
-        .pose-image {
-            width: 100%;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pose-label {
-            margin-top: 8px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
-        .pose-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px; /* Reduced from 15px */
-            margin-bottom: 15px; /* Reduced from 20px */
-        }
-        
-        .pose-indicator {
-            width: 12px;
-            height: 12px;
-            background-color: #ccc;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .pose-indicator.active {
-            background-color: #3f51b5;
-        }
-
-        /* Fix for the pose evaluation gallery */
-        .pose-gallery-container {
-            min-height: 350px; /* Reduced from 400px */
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            position: relative;
-            overflow: visible;
-        }
-        
-        .pose-slide {
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-        
-        .pose-slide.active {
-            display: block;
-            position: relative;
-        }
-        
-        .pose-image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            padding: 15px 0;
-            width: 100%;
-        }
-        
-        .pose-image-item {
-            width: 100%;
-            text-align: center;
-            margin: 0 auto;
-        }
-        
-        .pose-image {
-            width: 100%;
-            height: auto;
-            border-radius: 6px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            transition: transform 0.2s ease;
-        }
-        
-        .pose-image:hover {
-            transform: scale(1.02);
-        }
-        
-        .pose-label {
-            margin-top: 12px;
-            font-weight: bold;
-            font-size: 16px;
-            color: #444;
-        }
-
-        /* Additional fixes for comparison navigation */
-        .dataset-btn:not(.pose-dataset-btn).active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        .dataset-btn.pose-dataset-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        .dataset-buttons {
-            margin-top: 10px; /* Reduced from 15px */
-            margin-bottom: 15px; /* Reduced from 25px */
-        }
-        
-        /* Fix for pose evaluation gallery */
-        .pose-gallery-container {
-            min-height: 350px; /* Reduced from 400px */
-            height: auto;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            position: relative;
-            overflow: visible;
-            display: block;
-        }
-        
-        .pose-indicators {
-            margin-top: 15px;
-            margin-bottom: 20px;
-        }
-
-        /* Reduce vertical spacing between elements */
-        p {
-            margin-bottom: 0.75rem;
-        }
-
-        /* More compact spacing in the abstract */
-        .abstract {
-            line-height: 1.7; /* Reduced from 1.8 */
-        }
-
-        /* Make quantitative results more compact */
-        .quantitative-results {
-            padding: 12px;
-        }
-
-        .quantitative-results.full-width {
-            padding: 10px;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -496,8 +62,8 @@
                 <div class="section-box">
                     <h2>Interactive Results</h2>
 
-                    <!-- Indicators - moved above the gallery container -->
-                    <div class="gallery-indicators">
+                    <!-- Indicators - positioned above the gallery container -->
+                    <div class="gallery-indicators main-indicators">
                         <div class="gallery-indicator active" data-index="0"></div>
                         <div class="gallery-indicator" data-index="1"></div>
                         <div class="gallery-indicator" data-index="2"></div>
@@ -515,8 +81,8 @@
                                     <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/lady-running_hq.viser&initDistanceScale=2.0&initHeightOffset=1.0" class="gallery-iframe" title="Interactive Result 1" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
-                                    <div class="input-label">Input Video</div>
-                                    <video class="gallery-video" autoplay loop muted playsinline controls>
+                                    
+                                    <video class="gallery-video" autoplay loop muted playsinline>
                                         <source src="https://davidyao99.github.io/uni4d/recordings/lady-running.mp4" type="video/mp4">
                                         Your browser does not support video.
                                     </video>
@@ -533,8 +99,8 @@
                                     <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/judo_hq.viser&initDistanceScale=0.8&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
-                                    <div class="input-label">Input Video</div>
-                                    <video class="gallery-video" autoplay loop muted playsinline controls>
+                                    
+                                    <video class="gallery-video" autoplay loop muted playsinline>
                                         <source src="https://davidyao99.github.io/uni4d/recordings/judo.mp4" type="video/mp4">
                                         Your browser does not support video.
                                     </video>
@@ -551,7 +117,7 @@
                                     <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/soapbox_hq.viser&initDistanceScale=2.0&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 3" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
-                                    <div class="input-label">Input Video</div>
+                                    
                                     <video class="gallery-video" autoplay loop muted playsinline>
                                         <source src="https://davidyao99.github.io/uni4d/recordings/soapbox.mp4" type="video/mp4">
                                         Your browser does not support video.
@@ -569,8 +135,8 @@
                                     <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/lucia_hq.viser&initDistanceScale=0.8&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
-                                    <div class="input-label">Input Video</div>
-                                    <video class="gallery-video" autoplay loop muted playsinline controls>
+                                    
+                                    <video class="gallery-video" autoplay loop muted playsinline>
                                         <source src="https://davidyao99.github.io/uni4d/recordings/lucia.mp4" type="video/mp4">
                                         Your browser does not support video.
                                     </video>
@@ -587,7 +153,7 @@
                                     <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/bear_hq.viser&initDistanceScale=1.0&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 4" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
-                                    <div class="input-label">Input Video</div>
+                                    
                                     <video class="gallery-video" autoplay loop muted playsinline>
                                         <source src="https://davidyao99.github.io/uni4d/recordings/bear.mp4" type="video/mp4">
                                         Your browser does not support video.
@@ -605,7 +171,7 @@
                                     <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/breakdance-flare_hq.viser&initDistanceScale=1.6&initHeightOffset=0.0" class="gallery-iframe" title="Interactive Result 5" allowfullscreen></iframe>
                                 </div>
                                 <div class="video-container">
-                                    <div class="input-label">Input Video</div>
+                                    
                                     <video class="gallery-video" autoplay loop muted playsinline>
                                         <source src="https://davidyao99.github.io/uni4d/recordings/breakdance-flare.mp4" type="video/mp4">
                                         Your browser does not support video.
@@ -614,7 +180,7 @@
                             </div>
                         </div>
 
-                        <!-- Navigation Controls - fix closing tag -->
+                        <!-- Navigation Controls -->
                         <div class="gallery-nav prev">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -627,7 +193,7 @@
                         </div>
                     </div>
 
-                    <!-- Interaction Guide - placed below the gallery container -->
+                    <!-- Interaction Guide - ensure it's placed outside the gallery-container -->
                     <div class="interaction-guide">
                         <div class="interaction-item">
                             <div class="interaction-icon">
@@ -1151,13 +717,8 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Video comparison functionality
-            const datasetButtons = document.querySelectorAll('.dataset-btn');
-            const compSlides = document.querySelectorAll('.comp-slide');
-            const compIndicators = document.querySelectorAll('.comp-indicator');
-            const poseButtons = document.querySelectorAll('.pose-dataset-btn');
-            const poseSlides = document.querySelectorAll('.pose-slide');
-            const poseIndicators = document.querySelectorAll('.pose-indicator');
+            // Video comparison functionality - only keeping what's not in script.js
+            const videos = document.querySelectorAll('.comparison-video');
             
             // Function to adjust video container heights
             function adjustVideoContainers() {
@@ -1179,191 +740,9 @@
                 });
             }
             
-            // Function to ensure all videos play in the currently visible slide
-            function playVisibleSlideVideos() {
-                // Find the active comp-slide
-                const activeSlide = document.querySelector('.comp-slide.active');
-                if (activeSlide) {
-                    // Find all videos in the active slide and play them
-                    const videos = activeSlide.querySelectorAll('video');
-                    videos.forEach(video => {
-                        // Reset the video to start playing from beginning
-                        video.currentTime = 0;
-                        
-                        // Force autoplay
-                        video.play().catch(error => {
-                            console.log("Auto-play was prevented:", error);
-                        });
-                    });
-                }
-            }
-            
             // Call adjustVideoContainers initially and on window resize
             adjustVideoContainers();
             window.addEventListener('resize', adjustVideoContainers);
-            
-            // Make sure dataset buttons work correctly for comparison section
-            datasetButtons.forEach(button => {
-                if (!button.classList.contains('pose-dataset-btn')) {
-                    button.addEventListener('click', function() {
-                        // Get the dataset type
-                        const dataset = this.getAttribute('data-dataset');
-                        
-                        // Update button states
-                        datasetButtons.forEach(btn => {
-                            if (!btn.classList.contains('pose-dataset-btn')) {
-                                btn.classList.remove('active');
-                            }
-                        });
-                        this.classList.add('active');
-                        
-                        // Find the index of this dataset button among the non-pose buttons
-                        const datasets = ['sintel', 'tum', 'bonn', 'kitti', 'davis'];
-                        const index = datasets.indexOf(dataset);
-                        
-                        if (index !== -1) {
-                            // Update slides
-                            compSlides.forEach((slide, i) => {
-                                slide.classList.remove('active');
-                                if (i === index) {
-                                    slide.classList.add('active');
-                                    slide.style.position = 'relative';
-                                    slide.style.visibility = 'visible';
-                                    slide.style.opacity = '1';
-                                } else {
-                                    slide.style.position = 'absolute';
-                                    slide.style.visibility = 'hidden';
-                                    slide.style.opacity = '0';
-                                }
-                            });
-                            
-                            // Update indicators
-                            compIndicators.forEach((indicator, i) => {
-                                indicator.classList.remove('active');
-                                if (i === index) indicator.classList.add('active');
-                            });
-                            
-                            // Play videos in the active slide
-                            setTimeout(playVisibleSlideVideos, 100);
-                        }
-                    });
-                }
-            });
-            
-            // Make sure pose buttons work correctly
-            poseButtons.forEach((button, index) => {
-                button.addEventListener('click', function() {
-                    // Update pose buttons
-                    poseButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update pose slides
-                    poseSlides.forEach(slide => slide.classList.remove('active'));
-                    if (poseSlides[index]) poseSlides[index].classList.add('active');
-                    
-                    // Update pose indicators
-                    poseIndicators.forEach(ind => ind.classList.remove('active'));
-                    if (poseIndicators[index]) poseIndicators[index].classList.add('active');
-                });
-            });
-            
-            // Make pose indicators work
-            poseIndicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', function() {
-                    // Update pose indicators
-                    poseIndicators.forEach(ind => ind.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update pose slides
-                    poseSlides.forEach(slide => slide.classList.remove('active'));
-                    if (poseSlides[index]) poseSlides[index].classList.add('active');
-                    
-                    // Update pose buttons
-                    poseButtons.forEach(btn => btn.classList.remove('active'));
-                    if (poseButtons[index]) poseButtons[index].classList.add('active');
-                });
-            });
-            
-            // Navigation buttons for comparison gallery
-            const compPrevBtn = document.querySelector('.gallery-nav.comp-prev');
-            const compNextBtn = document.querySelector('.gallery-nav.comp-next');
-            
-            compPrevBtn.addEventListener('click', function() {
-                // Find current active comparison slide
-                let currentIndex = 0;
-                compSlides.forEach((slide, i) => {
-                    if (slide.classList.contains('active')) currentIndex = i;
-                });
-                
-                // Calculate previous index with wraparound
-                let prevIndex = currentIndex - 1;
-                if (prevIndex < 0) prevIndex = compSlides.length - 1;
-                
-                // Find dataset button and click it
-                const datasets = ['sintel', 'tum', 'bonn', 'kitti', 'davis'];
-                const prevDataset = datasets[prevIndex];
-                const prevBtn = document.querySelector(`.dataset-btn[data-dataset="${prevDataset}"]:not(.pose-dataset-btn)`);
-                if (prevBtn) prevBtn.click();
-            });
-            
-            compNextBtn.addEventListener('click', function() {
-                // Find current active comparison slide
-                let currentIndex = 0;
-                compSlides.forEach((slide, i) => {
-                    if (slide.classList.contains('active')) currentIndex = i;
-                });
-                
-                // Calculate next index with wraparound
-                let nextIndex = currentIndex + 1;
-                if (nextIndex >= compSlides.length) nextIndex = 0;
-                
-                // Find dataset button and click it
-                const datasets = ['sintel', 'tum', 'bonn', 'kitti', 'davis'];
-                const nextDataset = datasets[nextIndex];
-                const nextBtn = document.querySelector(`.dataset-btn[data-dataset="${nextDataset}"]:not(.pose-dataset-btn)`);
-                if (nextBtn) nextBtn.click();
-            });
-            
-            // Navigation buttons for pose gallery
-            const posePrevBtn = document.querySelector('.gallery-nav.pose-prev');
-            const poseNextBtn = document.querySelector('.gallery-nav.pose-next');
-            
-            if (posePrevBtn && poseNextBtn) {
-                posePrevBtn.addEventListener('click', function() {
-                    // Find current active pose slide
-                    let currentIndex = 0;
-                    poseSlides.forEach((slide, i) => {
-                        if (slide.classList.contains('active')) currentIndex = i;
-                    });
-                    
-                    // Calculate previous index with wraparound
-                    let prevIndex = currentIndex - 1;
-                    if (prevIndex < 0) prevIndex = poseSlides.length - 1;
-                    
-                    // Find pose button and click it
-                    const poseBtn = document.querySelector(`.pose-dataset-btn:nth-child(${prevIndex + 1})`);
-                    if (poseBtn) poseBtn.click();
-                });
-                
-                poseNextBtn.addEventListener('click', function() {
-                    // Find current active pose slide
-                    let currentIndex = 0;
-                    poseSlides.forEach((slide, i) => {
-                        if (slide.classList.contains('active')) currentIndex = i;
-                    });
-                    
-                    // Calculate next index with wraparound
-                    let nextIndex = currentIndex + 1;
-                    if (nextIndex >= poseSlides.length) nextIndex = 0;
-                    
-                    // Find pose button and click it
-                    const poseBtn = document.querySelector(`.pose-dataset-btn:nth-child(${nextIndex + 1})`);
-                    if (poseBtn) poseBtn.click();
-                });
-            }
-            
-            // Initialize video playback in first visible slide
-            playVisibleSlideVideos();
             
             // Remove any existing play overlays from Sintel videos specifically
             const sintelSlide = document.querySelector('.comp-slide:first-child');
