@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="video-container">
                                     
-                                    <video class="gallery-video" autoplay loop muted playsinline>
+                                    <video class="gallery-video" autoplay loop muted playsinline>loading="lazy" preload="none" width="320" height="180">
                                         <source src="https://davidyao99.github.io/uni4d/recordings/lady-running.mp4" type="video/mp4">
                                         Your browser does not support video.
                                     </video>
@@ -96,7 +96,7 @@
                             <div class="gallery-content">
                                 <div class="iframe-container">
                                     <div class="output-label">4D Reconstruction</div>
-                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/judo_hq.viser&initDistanceScale=0.8&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" allowfullscreen></iframe>
+                                    <iframe src="https://davidyao99.github.io/uni4d/build?playbackPath=https://davidyao99.github.io/uni4d/recordings/judo_hq.viser&initDistanceScale=0.8&initHeightOffset=0.15" class="gallery-iframe" title="Interactive Result 2" allowfullscreen></iframe>lazy"></iframe>
                                 </div>
                                 <div class="video-container">
                                     
@@ -714,49 +714,11 @@
         </div>
     </footer>
     
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <script src="videoOptimizer.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Video comparison functionality - only keeping what's not in script.js
-            const videos = document.querySelectorAll('.comparison-video');
-            
-            // Function to adjust video container heights
-            function adjustVideoContainers() {
-                const videos = document.querySelectorAll('.comparison-video');
-                videos.forEach(video => {
-                    // Make sure the video is visible
-                    video.style.display = 'block';
-                    video.style.width = '100%';
-                    video.style.height = 'auto';
-                    
-                    // Handle video metadata loading
-                    if (video.readyState >= 1) {
-                        video.parentElement.style.height = 'auto';
-                    } else {
-                        video.addEventListener('loadedmetadata', function() {
-                            video.parentElement.style.height = 'auto';
-                        });
-                    }
-                });
-            }
-            
-            // Call adjustVideoContainers initially and on window resize
-            adjustVideoContainers();
-            window.addEventListener('resize', adjustVideoContainers);
-            
-            // Remove any existing play overlays from Sintel videos specifically
-            const sintelSlide = document.querySelector('.comp-slide:first-child');
-            if (sintelSlide) {
-                const overlays = sintelSlide.querySelectorAll('.video-play-overlay');
-                overlays.forEach(overlay => overlay.remove());
-                
-                // Force play Sintel videos again without adding overlay on failure
-                const sintelVideos = sintelSlide.querySelectorAll('video');
-                sintelVideos.forEach(video => {
-                    video.muted = true; // Ensure muted to allow autoplay
-                    video.play().catch(e => console.log('Sintel video autoplay prevented:', e));
-                });
-            }
+            // Video comparison functionality is now handled by the main scripts
         });
     </script>
 </body>

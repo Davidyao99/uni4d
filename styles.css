@@ -1,5 +1,6 @@
 /* 
  * Uni4D Project - Main Stylesheet
+ * Optimized for performance
  * 
  * Table of Contents:
  * 1. CSS Variables & Base Styles
@@ -218,7 +219,7 @@ sup {
 }
 
 /* =========================================
-   5. Gallery Section
+   5. Gallery Section - Performance Optimized
    ========================================= */
 .gallery-section {
     position: relative;
@@ -226,7 +227,7 @@ sup {
     padding: 0;
 }
 
-/* Updated gallery container to eliminate white space and be more responsive */
+/* Optimized gallery container to reduce layout thrashing */
 .gallery-container {
     position: relative;
     width: 100%;
@@ -235,15 +236,19 @@ sup {
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     margin-bottom: 15px; /* Add small margin below container */
+    contain: layout style; /* Add containment for better performance */
 }
 
-/* Fix for gallery slide to properly fit container */
+/* Optimized gallery slide positioning to reduce reflows */
 .gallery-slide {
     position: absolute;
     width: 100%;
     height: auto; /* Changed from fixed height to auto */
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    visibility: hidden;
+    display: none;
+    will-change: opacity; /* Hint to browser about what will change */
+    transition: opacity 0.3s ease-in-out; /* Reduced from 0.5s to 0.3s */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -253,9 +258,11 @@ sup {
     opacity: 1;
     z-index: 1;
     position: relative; /* Changed to relative to properly take up space */
+    visibility: visible;
+    display: block;
 }
 
-/* Updated gallery content to fill appropriately */
+/* Use will-change for content that animates */
 .gallery-content {
     display: flex;
     flex-direction: column;
@@ -263,18 +270,21 @@ sup {
     width: 100%;
     height: auto; /* Changed from 100% to auto */
     position: relative;
+    min-height: 380px;
+    will-change: transform;
 }
 
-/* Gallery video - responsive sizing */
+/* Optimize videos with explicit dimensions to prevent layout shifts */
 .gallery-video {
     width: 100%;
     height: auto; /* Changed to auto for proper scaling */
     object-fit: contain;
     background-color: #000;
     display: block;
+    will-change: transform;
 }
 
-/* Updated iframe container for more square-like ratio */
+/* More efficient iframe container */
 .iframe-container {
     width: 100%;
     position: relative;
@@ -282,8 +292,8 @@ sup {
     border-radius: calc(0.2vw + 3px);
     overflow: hidden;
     margin-top: 10px;
-    /* Creating a more square-like aspect ratio using padding-bottom */
     padding-bottom: 80%; /* Changed from height declaration to padding-bottom */
+    contain: layout style; /* Add containment for better performance */
 }
 
 /* Updated iframe to fill its container completely */
@@ -421,6 +431,7 @@ sup {
     width: 100%;
     height: auto; /* Changed from 100% */
     position: relative;
+    contain: layout style; /* Add containment for better performance */
 }
 
 .pose-slide.active {
@@ -455,6 +466,7 @@ sup {
     transition: transform 0.2s ease;
     display: block;
     margin: 0 auto; /* Center the image */
+    will-change: transform;
 }
 
 .pose-image:hover {
@@ -648,7 +660,7 @@ sup {
 }
 
 /* =========================================
-   7. Comparison Section
+   7. Comparison Section - Optimized
    ========================================= */
 
 /* Dataset buttons container */
@@ -686,13 +698,14 @@ sup {
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
 }
 
-/* Container for comparison gallery */
+/* Improved comparison container for better performance */
 .comparison-container {
     height: auto;
     min-height: auto; /* Changed from fixed min-height */
     margin-bottom: 1rem; /* Reduced margin */
     padding-bottom: 40px; /* Add more padding for indicators */
     position: relative; /* Added to ensure proper positioning context */
+    contain: content; /* Add containment for better performance */
 }
 
 /* Dataset title */
@@ -752,6 +765,7 @@ sup {
     cursor: default; /* Changed from pointer to default */
     pointer-events: none; /* This makes videos unclickable */
     user-select: none; /* Prevent selection */
+    will-change: transform; /* Hint to browser about what will change */
 }
 
 /* Video play overlay */
@@ -782,13 +796,16 @@ sup {
     transform: scale(1.1);
 }
 
-/* Gallery slides for comparison */
+/* Efficient comparison slide positioning */
 .comp-slide {
     position: absolute;
     width: 100%;
     height: auto;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    visibility: hidden;
+    display: none;
+    transition: opacity 0.3s ease-in-out; /* Reduced from 0.5s */
+    contain: layout style; /* Add containment for better performance */
     padding: 1rem 0;
 }
 
@@ -796,6 +813,8 @@ sup {
     opacity: 1;
     z-index: 5; /* Lower than navigation buttons */
     position: relative; /* Change to relative when active to take up space */
+    visibility: visible;
+    display: block;
 }
 
 /* Fix for the invisible hyperlinks in DAVIS gallery slide */
