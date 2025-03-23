@@ -529,17 +529,17 @@ sup {
     font-weight: 600;
 }
 
-/* Comparison grid layout - 2x3 */
+/* Comparison grid layout - 2x3 for desktop, adapt for smaller screens */
 .comparison-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
     gap: 15px;
     width: 100%;
     height: auto;
 }
 
-/* Comparison item styling */
+/* Comparison item styling - more responsive */
 .comparison-item {
     position: relative;
     border-radius: 8px;
@@ -547,8 +547,9 @@ sup {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     background-color: #000;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 220px; /* Reduced from 250px */
-    z-index: 1; /* Ensure proper stacking */
+    aspect-ratio: 16/9;  /* Keep videos in correct proportion */
+    height: auto;  /* Let height be determined by aspect ratio */
+    z-index: 1;
 }
 
 /* Method label */
@@ -566,7 +567,7 @@ sup {
     backdrop-filter: blur(3px);
 }
 
-/* Video styling */
+/* Video styling - improved responsive behavior */
 .comparison-video {
     width: 100%;
     height: 100%;
@@ -769,6 +770,19 @@ footer {
         font-size: 0.9rem;
         white-space: nowrap;
     }
+    
+    /* Improved mobile adaptation for comparison grid */
+    .comparison-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+        grid-template-rows: auto;
+        gap: 12px;
+    }
+    
+    /* Smaller method labels on mobile */
+    .method-label {
+        padding: 4px 8px;
+        font-size: 0.85rem;
+    }
 }
 
 @media (max-width: 992px) {
@@ -785,12 +799,14 @@ footer {
 @media (max-width: 576px) {
     .comparison-grid {
         grid-template-columns: 1fr; /* 1 column on small screens */
-        grid-template-rows: repeat(6, 1fr);
+        grid-auto-rows: auto;
+        gap: 15px;
     }
     
     .comparison-item {
-        height: 200px;
-        margin-bottom: 15px;
+        /* Keeping a sensible height on mobile */
+        max-height: 250px;
+        margin-bottom: 0; /* Remove margin, gap handles spacing */
     }
     
     .dataset-title {
@@ -801,5 +817,23 @@ footer {
     .dataset-btn {
         padding: 6px 12px;
         font-size: 0.85rem;
+    }
+}
+
+/* Fix for super narrow screens */
+@media (max-width: 400px) {
+    .comparison-container {
+        min-height: auto;
+        height: auto;
+        padding: 15px 10px;
+    }
+    
+    .comparison-item {
+        max-height: 200px;
+    }
+    
+    .method-label {
+        font-size: 0.8rem;
+        padding: 3px 6px;
     }
 }

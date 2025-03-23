@@ -19,9 +19,9 @@
         .video-container {
             width: 30%;
             max-width: 600px;
-            border: 3px solid #3f51b5;
-            border-radius: 6px;
-            padding: 10px;
+            border: calc(0.2vw + 2px) solid #3f51b5;  /* Adaptive border width based on viewport */
+            border-radius: calc(0.2vw + 4px);  /* Adaptive border radius */
+            padding: min(2vw, 10px);  /* Adaptive padding with maximum */
             background-color: #f5f9ff;
             position: absolute;
             top: 20px;
@@ -58,6 +58,9 @@
             flex-grow: 1;
             position: relative;
             min-height: 380px; /* Further reduced from 400px for more compactness */
+            border: calc(0.2vw + 1px) solid #4caf50;  /* Adaptive border for iframe container */
+            border-radius: calc(0.2vw + 3px);  /* Adaptive border radius */
+            overflow: hidden;  /* Ensure contents don't overflow with border */
         }
         
         .output-label {
@@ -437,6 +440,27 @@
 
         .quantitative-results.full-width {
             padding: 10px;
+        }
+
+        /* Make containers responsive on smaller screens */
+        @media (max-width: 768px) {
+            .video-container {
+                width: 40%;  /* Slightly wider on smaller screens */
+                border-width: 2px;  /* Minimum border width on small screens */
+                padding: 8px;
+            }
+            
+            .iframe-container {
+                border-width: 2px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .video-container {
+                width: 50%;  /* Even wider on very small screens */
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
