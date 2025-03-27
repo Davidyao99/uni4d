@@ -591,6 +591,32 @@ sup {
     white-space: nowrap;
 }
 
+/* Added notification box styling */
+.notification {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-left: 4px solid #ffc107;
+    color: #856404;
+    padding: clamp(0.6rem, 1vw, 1rem);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: clamp(0.8rem, 0.7rem + 0.5vw, 1rem);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.notification-icon {
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.notification-icon svg {
+    width: clamp(16px, 1.2vw, 20px);
+    height: clamp(16px, 1.2vw, 20px);
+    fill: #ffc107;
+}
+
 /* =========================================
    6. Abstract & Overview
    ========================================= */
